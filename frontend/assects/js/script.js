@@ -62,7 +62,11 @@ document.addEventListener('DOMContentLoaded', () => {
       imageModule: "Image",
       imageModuleDesc: "Manage and process your image collections.",
       launch: "Launch",
-      selectFile: "Select File"
+      selectFile: "Select File",
+      netSavings: "Net Savings",
+      highestExpense: "Highest Expense",
+      recurringExpenses: "Recurring Expenses",
+      incomeVsExpenses: "Income vs. Expenses"
     },
     yo: {
       toolMaster: "ToolMaster",
@@ -125,7 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
       imageModule: "Aworan",
       imageModuleDesc: "Ṣakoso ati ṣe ilana awọn ikojọpọ aworan rẹ.",
       launch: "Ifilọlẹ",
-      selectFile: "Yan Faili"
+      selectFile: "Yan Faili",
+      netSavings: "Ifowopamọ Apapọ",
+      highestExpense: "Inawo ti o ga julọ",
+      recurringExpenses: "Awọn inawo loorekoore",
+      incomeVsExpenses: "Owo-wiwọle vs. Awọn inawo"
     },
     fr: {
       toolMaster: "ToolMaster",
@@ -188,7 +196,11 @@ document.addEventListener('DOMContentLoaded', () => {
       imageModule: "Image",
       imageModuleDesc: "Gérez et traitez vos collections d'images.",
       launch: "Lancer",
-      selectFile: "Sélectionner un fichier"
+      selectFile: "Sélectionner un fichier",
+      netSavings: "Épargne nette",
+      highestExpense: "Dépense la plus élevée",
+      recurringExpenses: "Dépenses récurrentes",
+      incomeVsExpenses: "Revenus vs Dépenses"
     }
   };
 
@@ -415,7 +427,11 @@ const uploadStatusDiv = document.getElementById("uploadStatus");
 const financialSummarySection = document.querySelector(".financial-summary-section");
 const totalIncomeSpan = document.getElementById("totalIncome");
 const totalExpensesSpan = document.getElementById("totalExpenses");
+const netSavingsSpan = document.getElementById("netSavings");
+const highestExpenseSpan = document.getElementById("highestExpense");
 const spendingCategoriesList = document.getElementById("spendingCategoriesList");
+const spendingChartCanvas = document.getElementById('spendingChart');
+const incomeExpenseChartCanvas = document.getElementById('incomeExpenseChart');
 
 // Currency symbols mapping
 const currencySymbols = {
@@ -483,16 +499,82 @@ if (processStatementBtn && uploadStatusDiv) {
         uploadStatusDiv.style.color = '#28a745'; // Green for success
         // Display dummy financial summary
         if (financialSummarySection) financialSummarySection.style.display = 'block';
-        if (totalIncomeSpan) totalIncomeSpan.textContent = `${currencySymbols[currencySelect.value]}500,000.00`;
-        if (totalExpensesSpan) totalExpensesSpan.textContent = `${currencySymbols[currencySelect.value]}350,000.00`;
+        const currentCurrencySymbol = currencySymbols[currencySelect.value];
+
+        if (totalIncomeSpan) totalIncomeSpan.textContent = `${currentCurrencySymbol}500,000.00`;
+        if (totalExpensesSpan) totalExpensesSpan.textContent = `${currentCurrencySymbol}350,000.00`;
+        if (netSavingsSpan) netSavingsSpan.textContent = `${currentCurrencySymbol}150,000.00`;
+        if (highestExpenseSpan) highestExpenseSpan.textContent = `${currentCurrencySymbol}120,000.00 (Groceries)`;
+
         if (spendingCategoriesList) {
           spendingCategoriesList.innerHTML = `
-            <li>Food <span>${currencySymbols[currencySelect.value]}100,000</span></li>
-            <li>Transport <span>${currencySymbols[currencySelect.value]}50,000</span></li>
-            <li>Rent <span>${currencySymbols[currencySelect.value]}150,000</span></li>
-            <li>Utilities <span>${currencySymbols[currencySelect.value]}30,000</span></li>
+            <li>Food <span>${currentCurrencySymbol}100,000</span></li>
+            <li>Transport <span>${currentCurrencySymbol}50,000</span></li>
+            <li>Rent <span>${currentCurrencySymbol}150,000</span></li>
+            <li>Utilities <span>${currentCurrencySymbol}30,000</span></li>
           `;
         }
+
+        // Dummy data for charts
+        const spendingData = {
+          labels: ['Food', 'Transport', 'Rent', 'Utilities'],
+          datasets: [{
+            data: [100000, 50000, 150000, 30000],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+          }]
+        };
+
+        const incomeExpenseData = {
+          labels: ['Income', 'Expenses'],
+          datasets: [{
+            data: [500000, 350000],
+            backgroundColor: ['#28a745', '#dc3545'],
+          }]
+        };
+
+        if (spendingChartCanvas) {
+          new Chart(spendingChartCanvas, {
+            type: 'pie',
+            data: spendingData,
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: 'top',
+                },
+                title: {
+                  display: true,
+                  text: 'Spending Breakdown'
+                }
+              }
+            },
+          });
+        }
+
+        if (incomeExpenseChartCanvas) {
+          new Chart(incomeExpenseChartCanvas, {
+            type: 'bar',
+            data: incomeExpenseData,
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  display: false,
+                },
+                title: {
+                  display: true,
+                  text: 'Income vs. Expenses'
+                }
+              },
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            },
+          });
+        }
+
       }, 2000);
     } else {
       uploadStatusDiv.textContent = 'Please select a file to upload.';

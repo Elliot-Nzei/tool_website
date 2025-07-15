@@ -61,11 +61,24 @@
       <div class="summary-metrics">
         <p data-i18n="totalIncome">Total Income: <span id="totalIncome">₦0.00</span></p>
         <p data-i18n="totalExpenses">Total Expenses: <span id="totalExpenses">₦0.00</span></p>
+        <p data-i18n="netSavings">Net Savings: <span id="netSavings">₦0.00</span></p>
+        <p data-i18n="highestExpense">Highest Expense: <span id="highestExpense">₦0.00</span></p>
       </div>
+
       <h4 data-i18n="spendingCategories">Spending Categories</h4>
-      <ul id="spendingCategoriesList">
-        <!-- Categories will be populated by JS -->
+      <div class="chart-container">
+        <canvas id="spendingChart"></canvas>
+      </div>
+
+      <h4 data-i18n="recurringExpenses">Recurring Expenses</h4>
+      <ul id="recurringExpensesList">
+        <!-- Recurring expenses will be populated by JS -->
       </ul>
+
+      <h4 data-i18n="incomeVsExpenses">Income vs. Expenses</h4>
+      <div class="chart-container">
+        <canvas id="incomeExpenseChart"></canvas>
+      </div>
     </section>
 
   </main>
@@ -77,6 +90,8 @@
     <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
   </footer>
 
-  <script src="../assects/js/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/finance.js"></script>
 </body>
 </html>
