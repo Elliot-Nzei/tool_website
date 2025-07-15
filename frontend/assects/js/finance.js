@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
       saveSalaryBtn.addEventListener('click', () => {
         localStorage.setItem('monthlySalary', salaryAmountInput.value);
         localStorage.setItem('currency', currencySelect.value);
-        alert('Monthly salary and currency saved!');
+        window.showNotification(`Monthly salary of ${currencySymbols[currencySelect.value]}${salaryAmountInput.value} saved!`, 'success');
       });
     }
   }
@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         uploadStatusDiv.textContent = 'Please select a file to upload.';
         uploadStatusDiv.style.color = '#e74c3c'; // Red for error
+        window.showNotification('Please select a file to upload.', 'error');
       }
     });
   }

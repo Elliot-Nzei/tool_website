@@ -1,3 +1,33 @@
+  // Global Notification Function
+  window.showNotification = (message, type = 'success', duration = 3000) => {
+    const notification = document.getElementById('appNotification');
+    if (!notification) return;
+
+    notification.textContent = message;
+    notification.className = 'app-notification'; // Reset classes
+    notification.classList.add(type);
+    notification.classList.add('show');
+
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, duration);
+  };
+
+  // Global Notification Function
+  window.showNotification = (message, type = 'success', duration = 3000) => {
+    const notification = document.getElementById('appNotification');
+    if (!notification) return;
+
+    notification.textContent = message;
+    notification.className = 'app-notification'; // Reset classes
+    notification.classList.add(type);
+    notification.classList.add('show');
+
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, duration);
+  };
+
 document.addEventListener('DOMContentLoaded', () => {
   // --- Language Translation Data ---
   const translations = {
@@ -283,14 +313,16 @@ document.addEventListener('DOMContentLoaded', () => {
   // Event listener for the module launcher button
   if (document.getElementById("moduleBtn")) {
     document.getElementById("moduleBtn").addEventListener("click", () => {
-      window.location.href = 'add_module.html';
+      window.showNotification('Redirecting to module selection...', 'info');
+      setTimeout(() => { window.location.href = 'add_module.html'; }, 500);
     });
   }
 
   // Event listener for the tab plus button
   if (tabPlusButton) {
     tabPlusButton.addEventListener("click", () => {
-      window.location.href = 'add_module.html';
+      window.showNotification('Redirecting to module selection...', 'info');
+      setTimeout(() => { window.location.href = 'add_module.html'; }, 500);
     });
   }
 
@@ -325,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
         reader.onload = (e) => {
           profileImage.src = e.target.result;
           localStorage.setItem('profileImage', e.target.result); // Save image to localStorage
+          window.showNotification('Profile image updated!', 'success');
         };
         reader.readAsDataURL(file);
       }
@@ -412,6 +445,21 @@ document.addEventListener('DOMContentLoaded', () => {
       if (profileActions) profileActions.style.display = "none";
     });
   }
+
+  // Global Notification Function
+  window.showNotification = (message, type = 'success', duration = 3000) => {
+    const notification = document.getElementById('appNotification');
+    if (!notification) return;
+
+    notification.textContent = message;
+    notification.className = 'app-notification'; // Reset classes
+    notification.classList.add(type);
+    notification.classList.add('show');
+
+    setTimeout(() => {
+      notification.classList.remove('show');
+    }, duration);
+  };
 });
 
 // Finance Page Logic

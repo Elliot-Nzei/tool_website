@@ -212,7 +212,7 @@ body.dark-mode .navbar {
 
 /* MOBILE TABBAR */
 .tabbar {
-  display: flex;
+  display: none; /* Hidden by default */
   justify-content: space-around;
   position: fixed;
   bottom: 0;
@@ -223,6 +223,12 @@ body.dark-mode .navbar {
   box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   z-index: 999;
   border-radius: 15px 15px 0 0;
+}
+
+@media (max-width: 767px) {
+  .tabbar {
+    display: flex; /* Show tabbar in phone mode */
+  }
 }
 
 .tab {
@@ -277,21 +283,34 @@ body.dark-mode .navbar {
   transform: translateY(-3px);
 }
 
-/* RESPONSIVE RULES */
-@media (max-width: 767px) {
-  .navbar {
-    padding: 1rem 0.5rem; /* Reduced right padding for phone mode */
-  }
-  .nav-actions {
-    gap: 0.75rem; /* Reduced gap for phone mode */
-  }
+/* APP NOTIFICATION */
+.app-notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #4CAF50; /* Default success color */
+  color: white;
+  padding: 15px 25px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  min-width: 250px;
+  text-align: center;
 }
 
-@media (min-width: 768px) {
-  .projects-table {
-    display: block;
-  }
-  .tabbar {
-    display: none;
-  }
+.app-notification.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.app-notification.error {
+  background-color: #f44336; /* Error color */
+}
+
+.app-notification.info {
+  background-color: #2196F3; /* Info color */
 }
