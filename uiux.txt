@@ -1,0 +1,306 @@
+## ✅ PAGE 1: `index.html` — Dashboard
+
+### 🔧 Purpose
+
+A centralized dashboard showing:
+
+* Quick stats across Resume, Finance, Health, and Image modules
+* Action shortcuts
+* Project tracker section (laptop view only)
+* Responsive UI with **mobile tabbar** and **laptop-only navbar**
+
+---
+
+## 🧱 Your Real Structure Context
+
+```bash
+project-root/
+├── backend/
+├── frontend/
+│   ├── assets/
+│   │   ├── css/
+│   │   │   └── style.css      ✅ Shared layout, navbar, tabbar, theme
+│   │   └── js/
+│   │       └── script.js      ✅ Single JS for toggle + logic
+│   └── pages/
+│       └── index.html         ✅ This page
+└── README.md
+```
+
+---
+
+### 📱 Mobile Layout
+
+#### ✅ UI Blocks
+
+* **Navbar**
+
+  * Left: `ToolMaster` logo or app name
+  * Right:
+
+    * 🔔 Notification icon
+    * ➕ Module launcher
+    * 🌙 Dark mode toggle
+
+* **Main Content**
+
+  * Grid of **4 stat cards** (Resume, Finance, Health, Image)
+  * 4 large **action buttons**
+  * (Laptop only) project status section
+
+* **Tabbar (Fixed bottom)**
+
+  * 🏠 Home (active)
+  * ➕ (module selector)
+  * ⚙️ Account
+
+---
+
+### 💻 Laptop Layout
+
+#### ✅ UI Blocks
+
+* **Same top navbar**, but expanded visually
+* **2-column dashboard layout**
+
+  * **Left 60%**
+
+    * Stats cards
+    * Quick action buttons
+  * **Right 40%**
+
+    * Project tracker section (list/table)
+    * Tabs for pending/completed/canceled (future logic)
+* **No bottom tabbar**
+
+---
+
+## 🖋️ `frontend/pages/index.html`
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToolMaster Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="logo">ToolMaster</div>
+    <div class="nav-actions">
+      <button id="notifBtn">🔔</button>
+      <button id="moduleBtn">➕</button>
+      <button id="darkToggle">🌙</button>
+      <a href="account.html" class="account-link">👤</a>
+    </div>
+  </header>
+
+  <!-- 📊 MAIN DASHBOARD -->
+  <main class="dashboard">
+
+    <!-- STAT CARDS -->
+    <section class="stats-grid">
+      <div class="card">📄 Resumes: 12</div>
+      <div class="card">💰 Finances: ₦250K+</div>
+      <div class="card">💪 Health Score: 88%</div>
+      <div class="card">🖼️ Images: 3 Pending</div>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section class="quick-actions">
+      <button class="action-btn">Build Resume</button>
+      <button class="action-btn">Track Finance</button>
+      <button class="action-btn">Log Health</button>
+      <button class="action-btn">Upload Images</button>
+    </section>
+
+    <!-- PROJECT TABLE (Laptop Only) -->
+    <section class="projects-table">
+      <h2>🧾 Image Projects</h2>
+      <div class="table">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Status</th><th>Last Modified</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Batch 01</td><td>Pending</td><td>2025-07-14</td></tr>
+            <tr><td>Batch 02</td><td>Completed</td><td>2025-07-12</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 📱 MOBILE TABBAR -->
+  <footer class="tabbar">
+    <a class="tab active" href="#">🏠</a>
+    <button class="tab" id="tabPlus">➕</button>
+    <a class="tab" href="account.html">⚙️</a>
+  </footer>
+
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>
+```
+
+---
+
+## 🎨 `frontend/assets/css/style.css`
+
+```css
+:root {
+  --color-bg: #ffffff;
+  --color-text: #1a1a1a;
+  --color-card: #f5f5f5;
+  --color-border: #e0e0e0;
+}
+
+body.dark-mode {
+  --color-bg: #121212;
+  --color-text: #e0e0e0;
+  --color-card: #1e1e1e;
+  --color-border: #333333;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-actions button,
+.account-link {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--color-card);
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.action-btn {
+  flex: 1 1 45%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #0077ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.projects-table {
+  display: none;
+  padding: 1rem;
+}
+
+.projects-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table th, .projects-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* MOBILE TABBAR */
+.tabbar {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+}
+
+.tab {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* RESPONSIVE RULES */
+@media (min-width: 768px) {
+  .projects-table {
+    display: block;
+  }
+  .tabbar {
+    display: none;
+  }
+}
+```
+
+---
+
+## ⚙️ `frontend/assets/js/script.js`
+
+```js
+document.getElementById("darkToggle").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});
+
+document.getElementById("moduleBtn").addEventListener("click", () => {
+  alert("Choose a module to start:\n- Resume\n- Finance\n- Health\n- Image");
+});
+
+document.getElementById("tabPlus").addEventListener("click", () => {
+  alert("Quick Module Launcher:\n- Resume\n- Finance\n- Health\n- Image");
+});
+```
+
+---
+
+## 🔄 Summary for `index.html`
+
+| Feature         | Status                   |
+| --------------- | ------------------------ |
+| Mobile Layout   | ✅ Done                   |
+| Laptop Layout   | ✅ Done                   |
+| Navbar & Tabbar | ✅ Shared via `style.css` |
+| Dark Mode       | ✅ JavaScript Toggle      |
+| Cards & Actions | ✅ Implemented            |
+| Project Table   | ✅ Laptop Only            |
+| Modular Scripts | ✅ Ready                  |
+

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToolMaster Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <link rel="stylesheet" href="../assects/css/style.css" />
+</head>
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <div class="logo">ToolMaster</div>
+    <div class="nav-actions">
+      <button id="notifBtn"><i class="fas fa-bell"></i></button>
+      <button id="moduleBtn"><i class="fas fa-plus"></i></button>
+      <button id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="account.html" class="account-link"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <!-- 📊 MAIN DASHBOARD -->
+  <main class="dashboard">
+
+    <!-- STAT CARDS -->
+    <section class="stats-grid">
+      <div class="card"><i class="fas fa-file-alt"></i> Resumes: 12</div>
+      <div class="card"><i class="fas fa-wallet"></i> Finances: ₦250K+</div>
+      <div class="card"><i class="fas fa-heartbeat"></i> Health Score: 88%</div>
+      <div class="card"><i class="fas fa-image"></i> Images: 3 Pending</div>
+    </section>
+
+    <!-- QUICK ACTIONS -->
+    <section class="quick-actions">
+      <button class="action-btn">Build Resume</button>
+      <button class="action-btn">Track Finance</button>
+      <button class="action-btn">Log Health</button>
+      <button class="action-btn">Upload Images</button>
+    </section>
+
+    <!-- ANALYSIS & IMPROVEMENT -->
+    <section class="analysis-section">
+      <h2>Analysis & Improvement</h2>
+      <div class="analysis-grid">
+        <div class="analysis-card">
+          <div class="card-header">
+            <i class="fas fa-file-alt"></i>
+            <h3>Resume Score</h3>
+          </div>
+          <p class="metric">85%</p>
+          <p class="suggestion">Suggestion: Add more action verbs to your experience section.</p>
+          <button class="improve-btn">Improve Now</button>
+        </div>
+        <div class="analysis-card">
+          <div class="card-header">
+            <i class="fas fa-wallet"></i>
+            <h3>Savings Rate</h3>
+          </div>
+          <p class="metric">15%</p>
+          <p class="suggestion">Suggestion: Categorize your spending to find potential savings.</p>
+          <button class="improve-btn">Analyze Spending</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECT TABLE (Laptop Only) -->
+    <section class="projects-table">
+      <h2>🧾 Image Projects</h2>
+      <div class="table">
+        <table>
+          <thead>
+            <tr><th>Name</th><th>Status</th><th>Last Modified</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Batch 01</td><td>Pending</td><td>2025-07-14</td></tr>
+            <tr><td>Batch 02</td><td>Completed</td><td>2025-07-12</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 📱 MOBILE TABBAR -->
+  <footer class="tabbar">
+    <a class="tab active" href="#"><i class="fas fa-home"></i></a>
+    <button class="tab" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
+    <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
+  </footer>
+
+  <script src="../assects/js/script.js"></script>
+</body>
+</html>

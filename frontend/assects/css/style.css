@@ -1,0 +1,199 @@
+:root {
+  --color-bg: #f0f2f5;
+  --color-text: #333;
+  --color-card: #ffffff;
+  --color-border: #e0e0e0;
+  --color-primary: #007bff;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode {
+  --color-bg: #1a1a1a;
+  --color-text: #f0f0f0;
+  --color-card: #2a2a2a;
+  --color-border: #444;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  transition: background 0.3s, color 0.3s;
+}
+
+main.dashboard {
+  padding-top: 5rem; /* Added space for fixed navbar */
+  padding-bottom: 5rem; /* Added space for mobile tabbar */
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-bg);
+  border-bottom: 1px solid var(--color-border);
+  position: fixed; /* Make navbar fixed */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000; /* Ensure it's on top */
+}
+
+.nav-actions button,
+.account-link {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  cursor: pointer;
+  color: var(--color-text);
+  transition: color 0.3s;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--color-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 1.1rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+}
+
+.quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.action-btn {
+  flex: 1 1 45%;
+  padding: 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ANALYSIS SECTION */
+.analysis-section {
+  padding: 1rem;
+}
+
+.analysis-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.analysis-card {
+  background: var(--color-card);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.analysis-card .card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.analysis-card .card-header i {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  color: var(--color-primary);
+}
+
+.analysis-card .metric {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.analysis-card .suggestion {
+  margin-top: 0.5rem;
+  flex-grow: 1;
+}
+
+.improve-btn {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.improve-btn:hover {
+  background-color: #218838;
+}
+
+.projects-table {
+  display: none;
+  padding: 1rem;
+}
+
+.projects-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.projects-table th, .projects-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* MOBILE TABBAR */
+.tabbar {
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+  padding: 0.5rem 0;
+}
+
+.tab {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* RESPONSIVE RULES */
+@media (min-width: 768px) {
+  .projects-table {
+    display: block;
+  }
+  .tabbar {
+    display: none;
+  }
+}
