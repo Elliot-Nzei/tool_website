@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="addModule">Add Module</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <link rel="stylesheet" href="../assects/css/style.css" />
+  <link rel="stylesheet" href="../assects/css/add_module.css" />
+</head>
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="logo" data-i18n="toolMaster">ToolMaster</a>
+    <div class="nav-actions">
+      <button id="notifBtn"><i class="fas fa-bell"></i></button>
+      <button id="moduleBtn"><i class="fas fa-plus"></i></button>
+      <button id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="account.html" class="account-link"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <!-- ➕ Module Selection Content -->
+  <main class="module-selection">
+    <h2 data-i18n="chooseModule">Choose a Module</h2>
+    <div class="module-grid">
+      <div class="card module-card">
+        <i class="fas fa-file-alt"></i>
+        <h3 data-i18n="resumeModule">Resume</h3>
+        <p data-i18n="resumeModuleDesc">Create and manage your professional resumes.</p>
+        <button class="action-btn" data-i18n="launch">Launch</button>
+      </div>
+      <div class="card module-card" id="financeModuleCard">
+        <i class="fas fa-wallet"></i>
+        <h3 data-i18n="financeModule">Finance</h3>
+        <p data-i18n="financeModuleDesc">Track your income, expenses, and budgets.</p>
+        <button class="action-btn" data-i18n="launch">Launch</button>
+      </div>
+      <div class="card module-card">
+        <i class="fas fa-heartbeat"></i>
+        <h3 data-i18n="healthModule">Health</h3>
+        <p data-i18n="healthModuleDesc">Monitor your health metrics and fitness goals.</p>
+        <button class="action-btn" data-i18n="launch">Launch</button>
+      </div>
+      <div class="card module-card">
+        <i class="fas fa-image"></i>
+        <h3 data-i18n="imageModule">Image</h3>
+        <p data-i18n="imageModuleDesc">Manage and process your image collections.</p>
+        <button class="action-btn" data-i18n="launch">Launch</button>
+      </div>
+    </div>
+  </main>
+
+  <!-- 📱 MOBILE TABBAR -->
+  <footer class="tabbar">
+    <a class="tab" href="index.html"><i class="fas fa-home"></i></a>
+    <button class="tab active" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
+    <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
+  </footer>
+
+  <script src="../assects/js/script.js"></script>
+</body>
+</html>

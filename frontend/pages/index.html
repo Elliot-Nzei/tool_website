@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToolMaster Dashboard</title>
+  <title data-i18n-title="dashboard">ToolMaster Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
   <link rel="stylesheet" href="../assects/css/style.css" />
@@ -12,7 +12,7 @@
 
   <!-- 🔝 NAVBAR -->
   <header class="navbar">
-    <div class="logo">ToolMaster</div>
+    <a href="index.html" class="logo" data-i18n="toolMaster">ToolMaster</a>
     <div class="nav-actions">
       <button id="notifBtn"><i class="fas fa-bell"></i></button>
       <button id="moduleBtn"><i class="fas fa-plus"></i></button>
@@ -26,52 +26,52 @@
 
     <!-- STAT CARDS -->
     <section class="stats-grid">
-      <div class="card"><i class="fas fa-file-alt"></i> Resumes: 12</div>
-      <div class="card"><i class="fas fa-wallet"></i> Finances: ₦250K+</div>
-      <div class="card"><i class="fas fa-heartbeat"></i> Health Score: 88%</div>
-      <div class="card"><i class="fas fa-image"></i> Images: 3 Pending</div>
+      <div class="card" data-i18n="resumes">📄 Resumes: 12</div>
+      <div class="card" data-i18n="finances">💰 Finances: ₦250K+</div>
+      <div class="card" data-i18n="healthScore">💪 Health Score: 88%</div>
+      <div class="card" data-i18n="images">🖼️ Images: 3 Pending</div>
     </section>
 
     <!-- QUICK ACTIONS -->
     <section class="quick-actions">
-      <button class="action-btn">Build Resume</button>
-      <button class="action-btn">Track Finance</button>
-      <button class="action-btn">Log Health</button>
-      <button class="action-btn">Upload Images</button>
+      <button class="action-btn" data-i18n="buildResume">Build Resume</button>
+      <button class="action-btn" data-i18n="trackFinance">Track Finance</button>
+      <button class="action-btn" data-i18n="logHealth">Log Health</button>
+      <button class="action-btn" data-i18n="uploadImages">Upload Images</button>
     </section>
 
     <!-- ANALYSIS & IMPROVEMENT -->
     <section class="analysis-section">
-      <h2>Analysis & Improvement</h2>
+      <h2 data-i18n="analysisImprovement">Analysis & Improvement</h2>
       <div class="analysis-grid">
         <div class="analysis-card">
           <div class="card-header">
             <i class="fas fa-file-alt"></i>
-            <h3>Resume Score</h3>
+            <h3 data-i18n="resumeScore">Resume Score</h3>
           </div>
           <p class="metric">85%</p>
-          <p class="suggestion">Suggestion: Add more action verbs to your experience section.</p>
-          <button class="improve-btn">Improve Now</button>
+          <p class="suggestion" data-i18n="suggestionActionVerbs">Suggestion: Add more action verbs to your experience section.</p>
+          <button class="improve-btn" data-i18n="improveNow">Improve Now</button>
         </div>
         <div class="analysis-card">
           <div class="card-header">
             <i class="fas fa-wallet"></i>
-            <h3>Savings Rate</h3>
+            <h3 data-i18n="savingsRate">Savings Rate</h3>
           </div>
           <p class="metric">15%</p>
-          <p class="suggestion">Suggestion: Categorize your spending to find potential savings.</p>
-          <button class="improve-btn">Analyze Spending</button>
+          <p class="suggestion" data-i18n="suggestionCategorizeSpending">Suggestion: Categorize your spending to find potential savings.</p>
+          <button class="improve-btn" data-i18n="analyzeSpending">Analyze Spending</button>
         </div>
       </div>
     </section>
 
     <!-- PROJECT TABLE (Laptop Only) -->
     <section class="projects-table">
-      <h2>🧾 Image Projects</h2>
+      <h2 data-i18n="imageProjects">🧾 Image Projects</h2>
       <div class="table">
         <table>
           <thead>
-            <tr><th>Name</th><th>Status</th><th>Last Modified</th></tr>
+            <tr><th data-i18n="name">Name</th><th data-i18n="status">Status</th><th data-i18n="lastModified">Last Modified</th></tr>
           </thead>
           <tbody>
             <tr><td>Batch 01</td><td>Pending</td><td>2025-07-14</td></tr>
@@ -87,7 +87,7 @@
   <footer class="tabbar">
     <a class="tab active" href="#"><i class="fas fa-home"></i></a>
     <button class="tab" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
-    <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
+    <a class="tab" href="./account.html"><i class="fas fa-cog"></i></a>
   </footer>
 
   <script src="../assects/js/script.js"></script>

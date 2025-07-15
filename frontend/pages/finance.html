@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n-title="financeDashboard">Finance Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+  <link rel="stylesheet" href="../assects/css/style.css" />
+  <link rel="stylesheet" href="../assects/css/finance.css" />
+</head>
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <header class="navbar">
+    <a href="index.html" class="logo" data-i18n="toolMaster">ToolMaster</a>
+    <div class="nav-actions">
+      <button id="notifBtn"><i class="fas fa-bell"></i></button>
+      <button id="moduleBtn"><i class="fas fa-plus"></i></button>
+      <button id="darkToggle"><i class="fas fa-moon"></i></button>
+      <a href="account.html" class="account-link"><i class="fas fa-user"></i></a>
+    </div>
+  </header>
+
+  <!-- 💰 Finance Content -->
+  <main class="finance-dashboard">
+    <h2 data-i18n="financeDashboardTitle">Your Financial Overview</h2>
+
+    <!-- Monthly Salary Input -->
+    <section class="card salary-input-section">
+      <h3 data-i18n="monthlySalary">Monthly Salary</h3>
+      <div class="input-group-with-icon">
+        <div class="currency-selector-wrapper">
+          <span class="currency-symbol" id="currencySymbol">₦</span>
+          <select id="currencySelect">
+            <option value="NGN">₦ NGN</option>
+            <option value="USD">$ USD</option>
+            <option value="EUR">€ EUR</option>
+            <option value="GBP">£ GBP</option>
+          </select>
+        </div>
+        <input type="number" id="salaryAmount" placeholder="e.g., 3000" />
+      </div>
+      <button class="action-btn" id="saveSalaryBtn" data-i18n="saveSalary">Save Salary</button>
+    </section>
+
+    <!-- Bank Statement Upload -->
+    <section class="card statement-upload-section">
+      <h3 data-i18n="bankStatementUpload">Bank Statement Upload</h3>
+      <p data-i18n="uploadInstructions">Upload your bank statement (CSV or PDF recommended):</p>
+      <input type="file" id="bankStatementFile" accept=".csv,.pdf" style="display: none;" />
+      <button class="action-btn upload-btn" id="selectFileBtn"><i class="fas fa-upload"></i> <span data-i18n="selectFile">Select File</span></button>
+      <span id="selectedFileName" class="selected-file-name">No file chosen</span>
+      <button class="action-btn" id="processStatementBtn" data-i18n="processStatement">Process Statement</button>
+      <div id="uploadStatus" class="status-message"></div>
+    </section>
+
+    <!-- Financial Summary (Initially Hidden) -->
+    <section class="card financial-summary-section" style="display: none;">
+      <h3 data-i18n="financialSummary">Financial Summary</h3>
+      <div class="summary-metrics">
+        <p data-i18n="totalIncome">Total Income: <span id="totalIncome">₦0.00</span></p>
+        <p data-i18n="totalExpenses">Total Expenses: <span id="totalExpenses">₦0.00</span></p>
+      </div>
+      <h4 data-i18n="spendingCategories">Spending Categories</h4>
+      <ul id="spendingCategoriesList">
+        <!-- Categories will be populated by JS -->
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- 📱 MOBILE TABBAR -->
+  <footer class="tabbar">
+    <a class="tab" href="index.html"><i class="fas fa-home"></i></a>
+    <button class="tab" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
+    <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
+  </footer>
+
+  <script src="../assects/js/script.js"></script>
+</body>
+</html>

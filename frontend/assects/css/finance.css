@@ -1,0 +1,116 @@
+.finance-dashboard {
+  padding: 5rem 1.5rem 5rem 1.5rem; /* Space for fixed navbar and tabbar */
+  max-width: 800px;
+  margin: auto;
+  text-align: center;
+}
+
+.finance-dashboard h2 {
+  margin-bottom: 2rem;
+  color: var(--color-text);
+}
+
+.salary-input-section,
+.statement-upload-section,
+.financial-summary-section {
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.input-group-with-icon {
+  position: relative;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-bg);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-group-with-icon:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.currency-selector-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--color-card);
+  border-right: 1px solid var(--color-border);
+}
+
+.input-group-with-icon .currency-symbol {
+  padding: 10px;
+  color: var(--color-text);
+  font-weight: 600;
+  pointer-events: none; /* Prevent symbol from interfering with select click */
+}
+
+.input-group-with-icon input[type="number"] {
+  flex-grow: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-size: 1rem;
+  outline: none;
+}
+
+.input-group-with-icon select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.input-group-with-icon select:focus + .currency-symbol {
+  color: var(--color-primary);
+}
+
+.input-group-with-icon select:focus {
+  outline: none;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+
+.selected-file-name {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.summary-metrics p {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+#spendingCategoriesList li {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+#spendingCategoriesList li span {
+  font-weight: 600;
+}
