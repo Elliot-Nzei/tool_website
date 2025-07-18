@@ -1,25 +1,65 @@
 .finance-dashboard {
-  padding: 5rem 1.5rem 5rem 1.5rem; /* Space for fixed navbar and tabbar */
+  padding: 2rem 1rem; /* Space for fixed navbar and tabbar */
   max-width: 800px;
   margin: auto;
   text-align: center;
 }
 
 .finance-dashboard h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   color: var(--color-text);
 }
 
-.salary-input-section,
-.statement-upload-section,
-.financial-summary-section {
-  margin-bottom: 2rem;
-  padding: 2rem;
+.finance-setup-card {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  text-align: left; /* Align text within the card to left */
+}
+
+.finance-setup-card h3 {
+  text-align: center; /* Center the main heading of the setup card */
+  margin-bottom: 1.5rem;
+  color: var(--color-primary);
+}
+
+.finance-setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Reduced gap between form groups */
+}
+
+.form-group {
+  margin-bottom: 0.5rem; /* Reduced margin-bottom */
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.25rem; /* Reduced margin-bottom for labels */
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.full-width-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.section-divider {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), var(--color-border), rgba(0, 0, 0, 0));
+  margin: 1.5rem 0;
+}
+
+.financial-summary-section,
+.recent-transactions-section {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
 .input-group-with-icon {
   position: relative;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem; /* Reduced margin-bottom */
   display: flex;
   align-items: center;
   border: 1px solid var(--color-border);
@@ -83,23 +123,71 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .selected-file-name {
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-size: 0.9rem;
   color: var(--color-text);
+}
+
+.summary-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-item {
+  background-color: var(--color-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.metric-item p {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  margin-bottom: 0.25rem;
+}
+
+.metric-item span {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-primary);
 }
 
 .summary-metrics p {
   font-size: 1.1rem;
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 #spendingCategoriesList li {
+  background-color: var(--color-card);
+  border: 1px solid var(--color-border);
+  padding: 0.5rem;
+  margin-bottom: 0.25rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+#spendingCategoriesList li span {
+  font-weight: 600;
+}
+
+.recent-transactions-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.recent-transactions-section li {
   background-color: var(--color-card);
   border: 1px solid var(--color-border);
   padding: 0.75rem;
@@ -111,6 +199,22 @@
   box-shadow: var(--shadow);
 }
 
-#spendingCategoriesList li span {
+.recent-transactions-section li span {
+  font-weight: 500;
+}
+
+.transaction-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.transaction-description {
+  flex-grow: 1;
+  text-align: left;
+  margin-left: 10px;
+}
+
+.transaction-amount {
   font-weight: 600;
+  color: var(--color-primary);
 }

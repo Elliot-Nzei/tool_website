@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Finance Page Logic
   const salaryAmountInput = document.getElementById("salaryAmount");
-  const saveSalaryBtn = document.getElementById("saveSalaryBtn");
+  const saveAndProcessBtn = document.getElementById("saveAndProcessBtn");
   const currencySelect = document.getElementById("currencySelect");
   const currencySymbolSpan = document.getElementById("currencySymbol");
   const bankStatementFile = document.getElementById("bankStatementFile");
@@ -47,34 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
       currencySymbolSpan.textContent = currencySymbols[currencySelect.value];
       localStorage.setItem('currency', currencySelect.value);
     });
-
-    if (saveSalaryBtn) {
-      saveSalaryBtn.addEventListener('click', () => {
-        localStorage.setItem('monthlySalary', salaryAmountInput.value);
-        localStorage.setItem('currency', currencySelect.value);
-        window.showNotification(`Monthly salary of ${currencySymbols[currencySelect.value]}${salaryAmountInput.value} saved!`, 'success');
-      });
-    }
   }
 
-  // Handle file selection
-  if (selectFileBtn && bankStatementFile && selectedFileNameSpan) {
-    selectFileBtn.addEventListener('click', () => {
-      bankStatementFile.click();
-    });
+  // Handle Save & Process button click
+  if (saveAndProcessBtn) {
+    saveAndProcessBtn.addEventListener('click', () => {
+      // Save salary and currency
+      localStorage.setItem('monthlySalary', salaryAmountInput.value);
+      localStorage.setItem('currency', currencySelect.value);
+      window.showNotification(`Monthly salary of ${currencySymbols[currencySelect.value]}${salaryAmountInput.value} saved!`, 'success');
 
-    bankStatementFile.addEventListener('change', () => {
-      if (bankStatementFile.files.length > 0) {
-        selectedFileNameSpan.textContent = bankStatementFile.files[0].name;
-      } else {
-        selectedFileNameSpan.textContent = 'No file chosen';
-      }
-    });
-  }
-
-  // Process statement (placeholder for backend integration)
-  if (processStatementBtn && uploadStatusDiv) {
-    processStatementBtn.addEventListener('click', () => {
+      // Process statement if a file is selected
       if (bankStatementFile && bankStatementFile.files.length > 0) {
         uploadStatusDiv.textContent = 'Processing statement... (Backend integration needed)';
         uploadStatusDiv.style.color = '#3498db'; // Blue for processing
@@ -90,6 +73,16 @@ document.addEventListener('DOMContentLoaded', () => {
           if (totalExpensesSpan) totalExpensesSpan.textContent = `${currentCurrencySymbol}350,000.00`;
           if (netSavingsSpan) netSavingsSpan.textContent = `${currentCurrencySymbol}150,000.00`;
           if (highestExpenseSpan) highestExpenseSpan.textContent = `${currentCurrencySymbol}120,000.00 (Groceries)`;
+
+          // Populate recent transactions
+          const recentTransactionsList = document.getElementById("recentTransactionsList");
+          if (recentTransactionsList) {
+            recentTransactionsList.innerHTML = `
+              <li><span class="transaction-date">2024-07-10</span> - <span class="transaction-description">Groceries</span>: <span class="transaction-amount">${currentCurrencySymbol}120,000</span></li>
+              <li><span class="transaction-date">2024-07-08</span> - <span class="transaction-description">Electricity Bill</span>: <span class="transaction-amount">${currentCurrencySymbol}15,000</span></li>
+              <li><span class="transaction-date">2024-07-05</span> - <span class="transaction-description">Salary</span>: <span class="transaction-amount">${currentCurrencySymbol}500,000</span></li>
+            `;
+          }
 
           if (spendingCategoriesList) {
             spendingCategoriesList.innerHTML = `
@@ -168,4 +161,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-});
+
+  // Handle file selection
+  if (selectFileBtn && bankStatementFile && selectedFileNameSpan) {
+    selectFileBtn.addEventListener('click', () => {
+      bankStatementFile.click();
+    });
+
+    bankStatementFile.addEventListener('change', () => {
+      if (bankStatementFile.files.length > 0) {
+        selectedFileNameSpan.textContent = bankStatementFile.files[0].name;
+      } else {
+        selectedFileNameSpan.textContent = 'No file chosen';
+      }
+    });
+  }

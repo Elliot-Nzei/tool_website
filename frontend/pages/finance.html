@@ -10,15 +10,16 @@
   <link rel="stylesheet" href="../assects/css/finance.css" />
 </head>
 <body>
+  <div id="appNotification" class="app-notification"></div>
 
   <!-- 🔝 NAVBAR -->
   <header class="navbar">
     <a href="index.html" class="logo" data-i18n="toolMaster">ToolMaster</a>
     <div class="nav-actions">
-      <button id="notifBtn"><i class="fas fa-bell"></i></button>
-      <button id="moduleBtn"><i class="fas fa-plus"></i></button>
-      <button id="darkToggle"><i class="fas fa-moon"></i></button>
-      <a href="account.html" class="account-link"><i class="fas fa-user"></i></a>
+      <button id="notifBtn" aria-label="Notifications"><i class="fas fa-bell"></i></button>
+      <button id="moduleBtn" aria-label="Add Module"><i class="fas fa-plus"></i></button>
+      <button id="darkToggle" aria-label="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+      <a href="account.html" class="account-link" aria-label="Account"><i class="fas fa-user"></i></a>
     </div>
   </header>
 
@@ -26,43 +27,59 @@
   <main class="finance-dashboard">
     <h2 data-i18n="financeDashboardTitle">Your Financial Overview</h2>
 
-    <!-- Monthly Salary Input -->
-    <section class="card salary-input-section">
-      <h3 data-i18n="monthlySalary">Monthly Salary</h3>
-      <div class="input-group-with-icon">
-        <div class="currency-selector-wrapper">
-          <span class="currency-symbol" id="currencySymbol">₦</span>
-          <select id="currencySelect">
-            <option value="NGN">₦ NGN</option>
-            <option value="USD">$ USD</option>
-            <option value="EUR">€ EUR</option>
-            <option value="GBP">£ GBP</option>
-          </select>
+    <!-- Finance Setup Card -->
+    <section class="card finance-setup-card">
+      <h3 data-i18n="financeSetup">Setup Your Finances</h3>
+      <div class="finance-setup-form">
+        <div class="finance-setup-form">
+        <div class="form-group">
+          <label for="salaryAmount" data-i18n="monthlySalary">Monthly Salary</label>
+          <div class="input-group-with-icon">
+            <div class="currency-selector-wrapper">
+              <span class="currency-symbol" id="currencySymbol">₦</span>
+              <select id="currencySelect" aria-label="Select Currency">
+                <option value="NGN">₦ NGN</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="GBP">£ GBP</option>
+              </select>
+            </div>
+            <input type="number" id="salaryAmount" placeholder="e.g., 3000" />
+          </div>
         </div>
-        <input type="number" id="salaryAmount" placeholder="e.g., 3000" />
-      </div>
-      <button class="action-btn" id="saveSalaryBtn" data-i18n="saveSalary">Save Salary</button>
-    </section>
 
-    <!-- Bank Statement Upload -->
-    <section class="card statement-upload-section">
-      <h3 data-i18n="bankStatementUpload">Bank Statement Upload</h3>
-      <p data-i18n="uploadInstructions">Upload your bank statement (CSV or PDF recommended):</p>
-      <input type="file" id="bankStatementFile" accept=".csv,.pdf" style="display: none;" />
-      <button class="action-btn upload-btn" id="selectFileBtn"><i class="fas fa-upload"></i> <span data-i18n="selectFile">Select File</span></button>
-      <span id="selectedFileName" class="selected-file-name">No file chosen</span>
-      <button class="action-btn" id="processStatementBtn" data-i18n="processStatement">Process Statement</button>
-      <div id="uploadStatus" class="status-message"></div>
-    </section>
+        <div class="form-group">
+          <label for="bankStatementFile" data-i18n="bankStatementUpload">Bank Statement Upload</label>
+          <p class="upload-instructions" data-i18n="uploadInstructions">Upload your bank statement (CSV or PDF recommended):</p>
+          <input type="file" id="bankStatementFile" accept=".csv,.pdf" style="display: none;" aria-label="Bank Statement File Upload" />
+          <button class="action-btn upload-btn" id="selectFileBtn" aria-label="Select File"><i class="fas fa-upload"></i> <span data-i18n="selectFile">Select File</span></button>
+          <span id="selectedFileName" class="selected-file-name">No file chosen</span>
+        </div>
+
+        <button class="action-btn full-width-btn" id="saveAndProcessBtn" data-i18n="saveAndProcess">Save & Process</button>
+        <div id="uploadStatus" class="status-message"></div>
+      </div>
 
     <!-- Financial Summary (Initially Hidden) -->
     <section class="card financial-summary-section" style="display: none;">
       <h3 data-i18n="financialSummary">Financial Summary</h3>
-      <div class="summary-metrics">
-        <p data-i18n="totalIncome">Total Income: <span id="totalIncome">₦0.00</span></p>
-        <p data-i18n="totalExpenses">Total Expenses: <span id="totalExpenses">₦0.00</span></p>
-        <p data-i18n="netSavings">Net Savings: <span id="netSavings">₦0.00</span></p>
-        <p data-i18n="highestExpense">Highest Expense: <span id="highestExpense">₦0.00</span></p>
+      <div class="summary-metrics-grid">
+        <div class="metric-item">
+          <p data-i18n="totalIncome">Total Income:</p>
+          <span id="totalIncome">₦0.00</span>
+        </div>
+        <div class="metric-item">
+          <p data-i18n="totalExpenses">Total Expenses:</p>
+          <span id="totalExpenses">₦0.00</span>
+        </div>
+        <div class="metric-item">
+          <p data-i18n="netSavings">Net Savings:</p>
+          <span id="netSavings">₦0.00</span>
+        </div>
+        <div class="metric-item">
+          <p data-i18n="highestExpense">Highest Expense:</p>
+          <span id="highestExpense">₦0.00</span>
+        </div>
       </div>
 
       <h4 data-i18n="spendingCategories">Spending Categories</h4>
@@ -81,17 +98,26 @@
       </div>
     </section>
 
+    <!-- Recent Transactions (Placeholder) -->
+    <section class="card recent-transactions-section" style="display: none;">
+      <h3 data-i18n="recentTransactions">Recent Transactions</h3>
+      <ul id="recentTransactionsList">
+        <!-- Recent transactions will be populated by JS -->
+        <li>No recent transactions.</li>
+      </ul>
+    </section>
+
   </main>
 
   <!-- 📱 MOBILE TABBAR -->
   <footer class="tabbar">
-    <a class="tab" href="index.html"><i class="fas fa-home"></i></a>
-    <button class="tab" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
-    <a class="tab" href="account.html"><i class="fas fa-cog"></i></a>
+    <a class="tab" href="index.html" aria-label="Home"><i class="fas fa-home"></i></a>
+    <button class="tab" id="tabPlus" aria-label="Add Transaction"><i class="fas fa-plus-circle"></i></button>
+    <a class="tab" href="account.html" aria-label="Settings"><i class="fas fa-cog"></i></a>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../assects/js/script.js"></script>
   <script src="../assects/js/finance.js"></script>
+  <script src="../assects/js/script.js"></script>
 </body>
 </html>
