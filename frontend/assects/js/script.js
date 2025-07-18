@@ -45,28 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
       enterSalary: "Enter your net monthly salary:",
       saveSalary: "Save Salary",
       bankStatementUpload: "Bank Statement Upload",
-      uploadInstructions: "Upload your bank statement (CSV or PDF recommended):",
+      uploadInstructions: "Upload your bank statement (CSV, Excel, or PDF recommended):",
       processStatement: "Process Statement",
       financialSummary: "Financial Summary",
       totalIncome: "Total Income:",
       totalExpenses: "Total Expenses:",
       spendingCategories: "Spending Categories",
-      addModule: "Add Module",
-      chooseModule: "Choose a Module",
-      resumeModule: "Resume",
-      resumeModuleDesc: "Create and manage your professional resumes.",
-      financeModule: "Finance",
-      financeModuleDesc: "Track your income, expenses, and budgets.",
-      healthModule: "Health",
-      healthModuleDesc: "Monitor your health metrics and fitness goals.",
-      imageModule: "Image",
-      imageModuleDesc: "Manage and process your image collections.",
-      launch: "Launch",
-      selectFile: "Select File",
-      netSavings: "Net Savings",
-      highestExpense: "Highest Expense",
-      recurringExpenses: "Recurring Expenses",
-      incomeVsExpenses: "Income vs. Expenses"
+      spendingBreakdownList: "Spending Breakdown"
     },
     yo: {
       toolMaster: "ToolMaster",
@@ -472,12 +457,11 @@ window.showNotification = function(message, type = 'info') {
     notification.classList.add('show');
   }, 10);
 
-  // Remove the notification after a few seconds
+  // Automatically hide after 3 seconds
   setTimeout(() => {
     notification.classList.remove('show');
-    // Remove the element from the DOM after the animation ends
     notification.addEventListener('transitionend', () => {
       notification.remove();
     });
-  }, 3000); // Shortened to 3 seconds
+  }, 3000);
 }

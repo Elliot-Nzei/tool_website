@@ -105,6 +105,52 @@
   font-weight: 600;
 }
 
+/* FINANCIAL HISTORY LIST */
+.financial-history-list-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  background-color: var(--color-card);
+  border-radius: 8px;
+  box-shadow: var(--shadow-elevation-1);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.history-item:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevation-2);
+}
+
+.history-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.history-item-content span {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.history-item-content span:first-child {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.history-item .fa-chevron-right {
+  color: var(--color-primary);
+  font-size: 1rem;
+}
+
 /* FINANCIAL SUMMARY SECTION */
 .summary-grid {
   display: grid;

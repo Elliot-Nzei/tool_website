@@ -1,0 +1,226 @@
+script.js:55 
+ Uncaught SyntaxError: Unexpected identifier 'spendingBreakdownList' (at script.js:55:7)
+[NEW] Explain Console errors by using Copilot in Edge: click 
+ to explain an error. Learn more
+Don't show again
+﻿
+
+Accessibility
+Buttons must have discernible text: Element has no title attribute
+<button id="notifBtn"><i class="fas fa-bell"></i></button>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+<button id="moduleBtn"><i class="fas fa-plus"></i></button>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+<button id="darkToggle"><i class="fas fa-moon"></i></button>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+<button class="tab" id="tabPlus"><i class="fas fa-plus-circle"></i></button>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+Links must have discernible text: Element has no title attribute
+<a href="account.html" class="account-link"><i class="fas fa-user"></i></a>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+<a class="tab active" href="#"><i class="fas fa-home"></i></a>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+<a class="tab" href="./account.html"><i class="fas fa-cog"></i></a>
+Open in ElementsSources
+Request
+http://127.0.0.1:5500/frontend/pages/index.html
+Further Reading
+Learn more about this axe rule at Deque University
+Learn why this is important and how to fix it on webhint.io
+Compatibility
+'backdrop-filter' is not supported by Safari. Add '-webkit-backdrop-filter' to support Safari 9+.
+.navbar {
+    backdrop-filter: blur(10px);
+}
+Open in Sources
+Request
+http://127.0.0.1:5500/frontend/assects/css/style.css
+Further Reading
+Learn more about this CSS feature on MDN
+Learn why this is important and how to fix it on webhint.io
+'content-type' header media type value should be 'font/woff2', not 'application/octet-stream'.
+Content-Type: application/octet-stream; charset=utf-8
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+'content-type' header value should not contain 'charset=utf-8'.
+Content-Type: application/octet-stream; charset=utf-8
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Performance
+Resource should use cache busting but URL does not match configured patterns.
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Response should not include unneeded headers: x-xss-protection
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJfecg.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJnecmNE.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Static resources should use a 'cache-control' header with 'max-age=31536000' or more.
+Cache-Control: public, max-age=30672000
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: private, max-age=86400, stale-while-revalidate=604800
+Open in
+Network
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: public, max-age=30672000
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Static resources should use a 'cache-control' header with the 'immutable' directive.
+Cache-Control: public, max-age=30672000
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: private, max-age=86400, stale-while-revalidate=604800
+Open in
+Network
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: public, max-age=30672000
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: public, max-age=31536000
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: public, max-age=31536000
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJfecg.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Cache-Control: public, max-age=31536000
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJnecmNE.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+Security
+The 'Expires' header should not be used, 'Cache-Control' should be preferred.
+expires: wed, 08 jul 2026 13:35:47 gmt
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+expires: fri, 18 jul 2025 13:35:47 gmt
+Open in
+Network
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+expires: wed, 08 jul 2026 13:35:48 gmt
+Open in
+Network
+Request
+https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/webfonts/fa-solid-900.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+expires: sat, 18 jul 2026 12:10:35 gmt
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiByp8kv8JHgFVrLEj6Z1xlFQ.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+expires: sat, 18 jul 2026 12:07:57 gmt
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJfecg.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+expires: thu, 16 jul 2026 01:22:22 gmt
+Open in
+Network
+Request
+https://fonts.gstatic.com/s/poppins/v23/pxiEyp8kv8JHgFVrJJnecmNE.woff2
+Further Reading
+Learn why this is important and how to fix it on webhint.io
+The 'X-Frame-Options' header should not be used. A similar effect, with more consistent support and stronger checks, can be achieved with the 'Content-Security-Policy' header and 'frame-ancestors' directive.
+x-frame-options: sameorigin
+Open in
+Network
+Request
+https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap
+Further Reading
+Learn why this is important and how to fix it on webhint.io

@@ -1,0 +1,201 @@
+Date,Description,Type,Amount,Category,Balance
+2023-05-19,"Education - Beasley, Lopez and Day",Debit,1162.92,Education,3924.25
+2023-11-29,"Utilities - Tucker, Bridges and Lopez",Debit,1806.91,Utilities,4311.8
+2023-10-01,Loan Payment - Spence-Baxter,Debit,78.05,Loan Payment,2086.96
+2023-11-23,"Groceries - Thomas, Escobar and Rogers",Debit,187.27,Groceries,4462.1
+2023-11-08,Online Shopping - Hudson-Powell,Debit,1404.13,Online Shopping,5411.46
+2023-10-21,"Transportation - Smith, Price and Davis",Debit,1497.28,Transportation,7008.68
+2023-07-27,"Internet - Booth, Sanders and Clay",Debit,591.5,Internet,8576.34
+2023-04-19,Dining - Larson PLC,Debit,421.41,Dining,8576.63
+2024-03-09,Dining - Gross Inc,Debit,62.01,Dining,3730.72
+2023-06-29,Internet - Wiggins-Simmons,Debit,1994.14,Internet,6503.43
+2023-10-19,"Transportation - Salazar, Hernandez and Chen",Debit,1498.15,Transportation,9178.65
+2023-11-26,Rent - Lewis LLC,Debit,475.23,Rent,8737.74
+2024-01-18,Loan Payment - Cruz Group,Debit,835.32,Loan Payment,6778.81
+2023-04-27,Loan Payment - Hinton LLC,Debit,1055.66,Loan Payment,3710.1
+2023-01-01,"Travel - Stewart, Suarez and Navarro",Debit,679.81,Travel,4136.26
+2024-01-29,Rent - Montes LLC,Debit,327.1,Rent,5683.96
+2024-05-09,Groceries - Lowe LLC,Debit,402.38,Groceries,6582.55
+2023-10-17,Rent - Kaufman and Sons,Debit,200.04,Rent,3050.36
+2024-03-26,Dining - Salazar LLC,Debit,548.65,Dining,8105.6
+2023-04-05,Dining - Smith-Roach,Debit,295.64,Dining,2425.57
+2024-05-28,Rent - Howell Ltd,Debit,317.23,Rent,4403.97
+2023-07-01,"Entertainment - Mora, Houston and Smith",Debit,880.37,Entertainment,6249.11
+2024-03-28,Healthcare - Garcia-Jackson,Debit,1061.34,Healthcare,4295.33
+2023-09-30,Groceries - Williams PLC,Debit,109.1,Groceries,4592.79
+2024-06-05,"Rent - Bates, Potts and Nelson",Debit,1969.68,Rent,3648.42
+2023-08-07,Rent - Hines LLC,Debit,137.33,Rent,9668.07
+2023-06-14,Education - Garcia Inc,Debit,198.32,Education,4169.29
+2024-05-27,"Dining - Davis, Le and Ferguson",Debit,466.83,Dining,7301.75
+2024-01-18,Salary - Bridges-Huerta,Credit,1475.78,Salary,9428.98
+2024-03-26,"Travel - Rhodes, Hall and Jenkins",Debit,1051.71,Travel,9892.0
+2023-12-10,Groceries - Huber Group,Debit,1533.07,Groceries,7415.2
+2023-07-31,"Transportation - Raymond, Ward and Long",Debit,776.54,Transportation,2536.21
+2023-01-20,Utilities - Benson-Baldwin,Debit,274.5,Utilities,5084.79
+2023-07-18,"Entertainment - Martinez, Butler and Olsen",Debit,198.75,Entertainment,1554.91
+2023-12-07,Groceries - Brooks-Edwards,Debit,1527.64,Groceries,5175.5
+2023-07-03,"Insurance - Cox, Robertson and Lin",Debit,149.87,Insurance,3722.37
+2023-10-26,Healthcare - Morales-Schwartz,Debit,1526.24,Healthcare,2421.07
+2024-02-16,Transportation - Alvarez-Macdonald,Debit,751.83,Transportation,8323.48
+2023-03-16,Online Shopping - Ali-Davis,Debit,1155.3,Online Shopping,8772.28
+2023-05-14,"Phone - Robinson, Clark and Adams",Debit,1864.64,Phone,1102.15
+2023-10-09,Travel - Hayes-Jones,Debit,943.73,Travel,5886.72
+2023-10-05,Phone - Evans Inc,Debit,701.28,Phone,3932.15
+2023-12-26,Online Shopping - Huynh Group,Debit,1184.6,Online Shopping,9505.29
+2024-04-09,"Internet - Yu, Donovan and Scott",Debit,884.64,Internet,7966.99
+2023-07-08,Internet - Macias Ltd,Debit,243.0,Internet,5992.0
+2023-07-02,Phone - Davis Ltd,Debit,1740.85,Phone,2025.35
+2023-01-09,"Online Shopping - Harris, Li and Howell",Debit,1888.84,Online Shopping,7623.16
+2024-03-31,Loan Payment - Crane Inc,Debit,123.63,Loan Payment,6476.48
+2023-01-13,Phone - Woodward Inc,Debit,126.14,Phone,4657.36
+2023-07-13,"Internet - Black, Baker and Green",Debit,1022.32,Internet,1655.54
+2023-08-03,Dining - Watts PLC,Debit,1826.48,Dining,8798.42
+2023-08-27,Internet - Vargas and Sons,Debit,1253.03,Internet,4777.27
+2023-03-30,Healthcare - Camacho-Jones,Debit,69.42,Healthcare,8504.49
+2024-05-31,Rent - Lane-Nguyen,Debit,1781.91,Rent,4906.17
+2023-03-06,Travel - Fernandez LLC,Debit,1553.21,Travel,2615.52
+2024-06-26,"Salary - Miller, Lewis and Hayes",Credit,775.13,Salary,2378.92
+2023-06-07,Travel - Oneill-Collier,Debit,412.7,Travel,8710.29
+2023-12-02,"Utilities - Young, Lee and Odonnell",Debit,112.61,Utilities,4695.47
+2024-05-02,"Insurance - Nguyen, Barron and Hurst",Debit,583.24,Insurance,7884.17
+2023-04-18,Travel - Campbell PLC,Debit,292.39,Travel,3130.37
+2024-06-11,Healthcare - Trevino-Graham,Debit,207.52,Healthcare,7584.51
+2023-12-23,"Phone - Wilson, Bailey and Sutton",Debit,458.4,Phone,5925.59
+2023-04-19,"Healthcare - Nielsen, Peterson and King",Debit,1217.54,Healthcare,1823.44
+2024-04-04,Travel - Brown-Davila,Debit,62.5,Travel,7603.49
+2023-03-22,Salary - Johnson-Nguyen,Credit,1061.33,Salary,3667.24
+2023-11-12,Insurance - Lucero-Fleming,Debit,1636.59,Insurance,7820.03
+2023-12-05,"Healthcare - King, Moore and Smith",Debit,1159.51,Healthcare,6410.33
+2023-06-12,Insurance - Scott Inc,Debit,888.73,Insurance,4003.54
+2023-11-19,Phone - Martin PLC,Debit,1324.6,Phone,4818.48
+2024-06-13,Rent - Armstrong-Morgan,Debit,1181.06,Rent,7140.43
+2023-07-13,Education - Bauer-Clark,Debit,844.57,Education,6914.99
+2024-06-07,"Utilities - Schneider, Vega and Tyler",Debit,375.9,Utilities,7370.63
+2024-02-20,Utilities - Bryant Ltd,Debit,1888.29,Utilities,8710.1
+2023-02-11,Healthcare - Hogan-Atkins,Debit,92.23,Healthcare,7690.1
+2024-04-09,"Groceries - Petersen, Lawson and Owens",Debit,1968.48,Groceries,5193.3
+2024-01-16,Phone - White-Carson,Debit,55.51,Phone,5623.7
+2023-11-01,"Transportation - Tanner, Henry and Mitchell",Debit,1239.85,Transportation,7597.2
+2023-07-17,"Insurance - Bailey, Mcintyre and Avery",Debit,1581.66,Insurance,5478.74
+2024-03-30,"Insurance - Perez, Cooper and Howe",Debit,1874.37,Insurance,4938.65
+2024-01-09,Travel - Burke Group,Debit,1154.39,Travel,4066.7
+2023-02-10,Phone - Houston-Francis,Debit,325.46,Phone,7498.77
+2024-06-01,"Transportation - Jennings, Nguyen and Hernandez",Debit,1133.44,Transportation,7117.79
+2023-08-16,Loan Payment - Conner-Gallagher,Debit,745.93,Loan Payment,2585.39
+2023-01-25,Dining - Solomon-Walsh,Debit,1929.42,Dining,6019.67
+2024-02-13,Transportation - Wise-Gibson,Debit,1264.97,Transportation,8197.21
+2023-09-24,"Entertainment - Griffin, Romero and Carter",Debit,1675.03,Entertainment,7543.16
+2023-08-09,Internet - Mcpherson PLC,Debit,32.26,Internet,2445.18
+2023-12-10,Online Shopping - Gallagher-Dickson,Debit,1227.47,Online Shopping,8552.34
+2024-05-24,Internet - Thompson PLC,Debit,794.24,Internet,9606.04
+2024-02-05,Entertainment - Clements Inc,Debit,1619.51,Entertainment,1961.78
+2024-02-18,Entertainment - Moran Ltd,Debit,210.67,Entertainment,4462.43
+2023-05-11,Entertainment - Savage PLC,Debit,628.21,Entertainment,2515.1
+2024-05-12,Groceries - Duncan-Huerta,Debit,302.2,Groceries,3242.1
+2023-05-09,"Insurance - Jordan, Marshall and Ashley",Debit,1135.81,Insurance,2653.57
+2023-02-16,Utilities - Ashley Inc,Debit,649.96,Utilities,1918.26
+2023-10-06,"Rent - Knight, King and Miller",Debit,699.66,Rent,7774.31
+2023-06-16,Loan Payment - Logan LLC,Debit,1196.5,Loan Payment,5576.87
+2024-05-22,"Online Shopping - Chung, Watson and Frank",Debit,983.58,Online Shopping,4352.97
+2023-05-22,Salary - Patrick Group,Credit,1990.53,Salary,8463.06
+2024-03-10,Transportation - Gonzalez-Barron,Debit,570.52,Transportation,6076.72
+2023-10-16,Salary - Walls LLC,Credit,876.89,Salary,2520.84
+2023-06-14,Entertainment - Wise-Brown,Debit,326.76,Entertainment,1645.27
+2023-12-11,Travel - Gray-Bauer,Debit,976.1,Travel,4800.46
+2024-01-13,"Rent - Griffin, Perez and Stone",Debit,375.14,Rent,9087.43
+2023-07-14,"Rent - Parker, Riley and Ramirez",Debit,663.29,Rent,2028.34
+2023-10-01,Insurance - Jones-Gibson,Debit,916.61,Insurance,5497.0
+2024-02-24,Phone - Pineda PLC,Debit,1262.03,Phone,2172.98
+2023-04-02,Salary - Johnson-Spencer,Credit,1200.31,Salary,6703.99
+2023-10-31,"Entertainment - Gonzalez, Davis and Ramos",Debit,125.23,Entertainment,9661.09
+2023-08-28,Internet - Delgado-Diaz,Debit,1896.82,Internet,2133.64
+2024-03-08,Phone - Pearson Ltd,Debit,1346.86,Phone,1076.42
+2024-03-18,"Insurance - Hodge, Thompson and Love",Debit,1848.02,Insurance,4957.45
+2023-03-18,Healthcare - Wallace-Black,Debit,272.9,Healthcare,9712.52
+2023-06-01,"Online Shopping - Murillo, Chavez and Gomez",Debit,1177.27,Online Shopping,7092.22
+2023-12-30,Insurance - Jones Group,Debit,1701.46,Insurance,9100.75
+2023-03-20,Salary - Adams-Thompson,Credit,1995.87,Salary,8968.31
+2024-03-28,Travel - Malone-Park,Debit,1808.93,Travel,1614.55
+2023-01-31,Loan Payment - Jensen PLC,Debit,1144.94,Loan Payment,2541.7
+2023-12-17,Rent - Young-Anderson,Debit,825.43,Rent,1703.82
+2023-01-23,Loan Payment - Bowen-Meyer,Debit,334.69,Loan Payment,7394.07
+2023-05-10,Travel - Hall Inc,Debit,310.94,Travel,5432.86
+2023-07-28,"Salary - Kerr, Berg and Smith",Credit,1530.94,Salary,4380.2
+2023-11-30,"Healthcare - Henry, Harper and Burke",Debit,301.84,Healthcare,9872.08
+2023-07-02,"Travel - Carr, Weber and Griffin",Debit,1241.7,Travel,9333.14
+2024-06-16,"Groceries - Maldonado, Jordan and Lee",Debit,349.5,Groceries,7178.72
+2023-11-12,"Travel - Richardson, Elliott and Martinez",Debit,337.68,Travel,3698.01
+2024-03-22,Groceries - Barnes-Anderson,Debit,1274.27,Groceries,1111.51
+2024-03-21,Loan Payment - Jones-Pearson,Debit,1092.95,Loan Payment,3594.04
+2024-03-18,"Salary - Garcia, Webb and Bass",Credit,991.02,Salary,1885.07
+2024-02-10,"Loan Payment - Carter, Hoffman and Aguilar",Debit,736.85,Loan Payment,3249.51
+2023-10-05,"Online Shopping - Foster, Choi and Smith",Debit,1817.55,Online Shopping,1130.55
+2023-03-18,Rent - Lynch Ltd,Debit,665.29,Rent,3725.0
+2023-01-12,Loan Payment - Carlson-Gonzalez,Debit,817.03,Loan Payment,6688.21
+2023-01-01,Internet - Snow-Young,Debit,1387.58,Internet,2132.65
+2023-06-25,Insurance - Anderson and Sons,Debit,1038.6,Insurance,4202.28
+2023-04-19,Dining - Taylor LLC,Debit,1271.65,Dining,9138.89
+2024-06-10,Loan Payment - Ramirez Ltd,Debit,436.44,Loan Payment,7884.99
+2023-08-10,Transportation - Wright and Sons,Debit,676.91,Transportation,3641.69
+2023-08-24,Salary - Brown-Johnson,Credit,692.45,Salary,9852.94
+2023-01-09,Internet - Mckee-Price,Debit,729.62,Internet,2218.73
+2023-06-06,Salary - Clements-Thompson,Credit,970.74,Salary,8700.31
+2023-02-02,"Insurance - Shaffer, Howard and Silva",Debit,334.36,Insurance,9319.09
+2023-05-18,Phone - Gregory-Richardson,Debit,989.28,Phone,4338.89
+2024-05-08,Utilities - Brown Group,Debit,1019.43,Utilities,6247.27
+2023-07-07,Internet - Benjamin Inc,Debit,1014.25,Internet,3240.06
+2023-09-25,Loan Payment - Hickman PLC,Debit,111.47,Loan Payment,4829.57
+2024-05-04,"Education - Bentley, Adkins and Tate",Debit,1751.24,Education,5592.77
+2024-01-14,Internet - Meyer-Hoover,Debit,130.04,Internet,7034.11
+2024-04-25,"Dining - Lambert, Matthews and Hudson",Debit,1489.93,Dining,1226.8
+2024-02-09,"Healthcare - Garcia, Hernandez and Marks",Debit,155.11,Healthcare,1278.49
+2024-06-12,Rent - Griffin Inc,Debit,1265.4,Rent,8581.87
+2023-03-10,Transportation - Dorsey Group,Debit,1958.27,Transportation,1652.32
+2024-01-03,Entertainment - Duncan and Sons,Debit,536.14,Entertainment,5317.85
+2023-10-15,"Rent - West, Heath and Stone",Debit,166.7,Rent,3125.52
+2023-11-10,Insurance - Gibson-Patton,Debit,1454.24,Insurance,2103.44
+2023-01-29,"Online Shopping - Figueroa, Woods and Cortez",Debit,747.17,Online Shopping,5968.51
+2024-05-08,Phone - Gibson-Vasquez,Debit,519.95,Phone,1760.18
+2023-09-24,"Online Shopping - Lewis, Garcia and Gonzalez",Debit,1876.27,Online Shopping,4146.43
+2024-04-26,Transportation - Beltran Inc,Debit,974.14,Transportation,7322.59
+2023-01-26,Rent - Howard LLC,Debit,46.59,Rent,9312.81
+2023-10-11,Transportation - Tapia-Parker,Debit,1957.57,Transportation,3575.81
+2023-08-06,"Entertainment - Church, Brown and Wilson",Debit,868.9,Entertainment,7939.11
+2023-09-12,"Travel - Roberson, Soto and Shaffer",Debit,347.13,Travel,9610.6
+2023-03-24,"Transportation - Clark, Reid and Stanley",Debit,1454.4,Transportation,2939.92
+2023-10-29,Utilities - Fields Inc,Debit,323.29,Utilities,3283.89
+2024-02-22,"Rent - Rivera, Garcia and Nelson",Debit,1443.94,Rent,4552.09
+2023-02-10,Online Shopping - Walker-Weber,Debit,893.15,Online Shopping,4896.35
+2024-01-22,Groceries - Oliver Group,Debit,1411.19,Groceries,8480.32
+2023-05-29,"Dining - Wu, Rodriguez and Green",Debit,925.21,Dining,8170.41
+2023-12-08,Loan Payment - Sanders and Sons,Debit,1710.58,Loan Payment,7726.09
+2023-09-23,Travel - Montgomery-Collins,Debit,1157.86,Travel,1699.57
+2023-10-03,"Internet - King, Hamilton and Villarreal",Debit,486.15,Internet,6791.45
+2024-02-20,Online Shopping - Gonzalez Inc,Debit,385.74,Online Shopping,2288.24
+2024-04-18,Internet - Walters-Kelley,Debit,227.5,Internet,4873.24
+2023-01-26,Dining - Brown-Harris,Debit,487.23,Dining,5829.33
+2023-07-09,Travel - Brown-Wright,Debit,1204.22,Travel,2866.01
+2023-09-18,Education - Jenkins-Smith,Debit,1431.83,Education,6482.51
+2024-02-09,Utilities - Reyes Group,Debit,1598.29,Utilities,9053.4
+2023-05-02,"Utilities - Patrick, Parker and Diaz",Debit,498.14,Utilities,9460.24
+2024-01-27,Online Shopping - Price and Sons,Debit,1780.74,Online Shopping,7701.86
+2023-05-16,Education - Simpson-Frazier,Debit,1160.76,Education,2775.72
+2023-11-08,"Insurance - Cummings, Chung and Villarreal",Debit,1317.86,Insurance,5178.66
+2024-06-24,Education - Vega-Black,Debit,1663.32,Education,2270.49
+2023-03-10,Transportation - Baker Inc,Debit,477.94,Transportation,1096.03
+2024-03-20,Groceries - Phillips-Rogers,Debit,1287.23,Groceries,3231.33
+2024-01-24,Utilities - Thompson-Schmidt,Debit,695.1,Utilities,1030.06
+2024-03-29,"Salary - Patton, Barker and Gregory",Credit,1229.88,Salary,5894.75
+2023-07-13,Internet - Hill-Shah,Debit,610.32,Internet,4153.03
+2023-05-18,Healthcare - Woodward-Lin,Debit,316.2,Healthcare,2827.6
+2023-11-27,"Transportation - Powell, Graham and Hall",Debit,1523.13,Transportation,5429.46
+2023-10-18,Internet - Wright Inc,Debit,1000.36,Internet,3050.06
+2024-01-01,Groceries - Bentley Group,Debit,724.38,Groceries,7663.87
+2023-11-27,"Utilities - Stephens, Greene and Vasquez",Debit,1269.56,Utilities,7333.98
+2024-06-11,Dining - Lawson-Bullock,Debit,1699.14,Dining,5999.54
+2023-03-27,"Dining - Garrett, Richardson and Walker",Debit,1962.51,Dining,1969.07
+2024-06-12,Entertainment - Zamora-Mendoza,Debit,682.01,Entertainment,7299.23
+2023-06-25,Insurance - Clements LLC,Debit,703.17,Insurance,9025.44
+2024-05-30,Healthcare - Vazquez-Espinoza,Debit,1888.36,Healthcare,3666.54
+2023-03-10,Healthcare - Jackson-Chapman,Debit,162.99,Healthcare,6767.07
+2024-01-18,Loan Payment - Perry-Hanson,Debit,1813.82,Loan Payment,1905.55

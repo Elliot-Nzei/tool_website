@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const incomeExpenseChartCanvas = document.getElementById('incomeExpenseChart');
   const recurringExpensesList = document.getElementById("recurringExpensesList");
   const recentTransactionsList = document.getElementById("recentTransactionsList");
+  const spendingBreakdownList = document.getElementById("spendingBreakdownList");
 
   const currencySymbols = { NGN: '₦', USD: '$', EUR: '€', GBP: '£' };
   let spendingChart, incomeExpenseChart;
@@ -68,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Populate lists
     populateList(recurringExpensesList, data.recurring_transactions, currencySymbol);
     populateList(recentTransactionsList, data.transactions, currencySymbol);
+    populateSpendingBreakdownList(spendingBreakdownList, data.spending_breakdown, currencySymbol);
 
     // Create or update charts
     createOrUpdateCharts(data, currencySymbol);
@@ -98,6 +100,25 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       listElement.appendChild(li);
     });
+  };
+
+  const populateSpendingBreakdownList = (listElement, breakdownData, currencySymbol) => {
+    if (!listElement) return;
+    listElement.innerHTML = ''; // Clear existing items
+    if (Object.keys(breakdownData).length === 0) {
+      listElement.innerHTML = '<li>No spending categories available.</li>';
+      return;
+    }
+    for (const category in breakdownData) {
+      const li = document.createElement('li');
+      li.innerHTML = `
+        <div class="list-item-main">
+          <span class="description">${category}</span>
+        </div>
+        <span class="amount expense">${formatCurrency(breakdownData[category], currencySymbol)}</span>
+      `;
+      listElement.appendChild(li);
+    }
   };
 
   const createOrUpdateCharts = (data, currencySymbol) => {
@@ -160,7 +181,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const li = document.createElement('li');
       li.classList.add('history-item');
       li.dataset.index = index; // Store index for easy retrieval
-      li.textContent = `Analysis from ${new Date(entry.timestamp).toLocaleString()} (${currencySymbols[entry.currency]})`;
+      const formattedIncome = formatCurrency(entry.data.total_income, currencySymbols[entry.currency]);
+      const formattedExpenses = formatCurrency(entry.data.total_expenses, currencySymbols[entry.currency]);
+      const formattedSavings = formatCurrency(entry.data.net_savings, currencySymbols[entry.currency]);
+
+      li.innerHTML = `
+        <div class="history-item-content">
+          <span>Analysis from ${new Date(entry.timestamp).toLocaleString()}</span>
+          <span>Income: ${formattedIncome}</span>
+          <span>Expenses: ${formattedExpenses}</span>
+          <span>Savings: ${formattedSavings}</span>
+        </div>
+        <i class="fas fa-chevron-right"></i>
+      `;
       financialHistoryList.appendChild(li);
     });
   };
@@ -170,6 +203,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (index >= 0 && index < history.length) {
       const entry = history[index];
       updateUI(entry.data, currencySymbols[entry.currency]);
+      viewHistoryBtn.textContent = 'Hide Financial History'; // Update button text when loading a specific analysis
     } else {
       window.showNotification('Error: Analysis not found.', 'error');
     }
@@ -188,11 +222,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    console.log('File detected, proceeding with upload.');
     uploadStatusDiv.textContent = 'Processing statement...';
     uploadStatusDiv.style.color = '#17a2b8';
 
     const formData = new FormData();
     formData.append('file', bankStatementFile.files[0]);
+    formData.append('salary', salary);
+    formData.append('currency', currency);
+    console.log('FormData created.');
 
     fetch('http://127.0.0.1:5000/process_statement', {
       method: 'POST',
@@ -215,6 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
         saveFinancialAnalysis(newAnalysis);
 
         updateUI(data, currencySymbol);
+        // Explicitly ensure summary is visible and history is hidden after processing
+        financialSummarySection.style.display = 'block';
+        financialHistoryListSection.style.display = 'none';
+        viewHistoryBtn.textContent = 'Hide Financial History'; // Set button text to reflect summary is visible
+
         uploadStatusDiv.textContent = 'Statement processed successfully!';
         uploadStatusDiv.style.color = '#28a745';
         window.showNotification('Financial summary updated and saved!', 'success');
@@ -230,19 +273,16 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const handleViewHistoryClick = () => {
-    if (financialHistoryListSection.style.display === 'block') {
-      // If history is visible, hide it and show summary if one is loaded
-      financialHistoryListSection.style.display = 'none';
-      if (financialSummarySection.style.display === 'block') {
-        viewHistoryBtn.textContent = 'Hide Financial History';
-      } else {
-        viewHistoryBtn.textContent = 'View Financial History';
-      }
-    } else {
-      // If history is hidden, show it and hide summary
+    if (financialSummarySection.style.display === 'block') {
+      // Currently showing summary, switch to history
       financialSummarySection.style.display = 'none';
       financialHistoryListSection.style.display = 'block';
       populateHistoryList();
+      viewHistoryBtn.textContent = 'View Financial History';
+    } else {
+      // Currently showing history (or neither), switch to summary
+      financialSummarySection.style.display = 'block';
+      financialHistoryListSection.style.display = 'none';
       viewHistoryBtn.textContent = 'Hide Financial History';
     }
   };
@@ -255,9 +295,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (currencySelect) currencySelect.value = savedCurrency;
     if (currencySymbolSpan) currencySymbolSpan.textContent = currencySymbols[savedCurrency];
 
-    // Check if there's any history to show the button
-    if (getFinancialHistory().length > 0) {
+    const history = getFinancialHistory();
+    if (history.length > 0) {
+      // Load the most recent analysis by default
+      loadSpecificAnalysis(history.length - 1);
       viewHistoryBtn.style.display = 'block';
+    } else {
+      // Ensure summary is hidden if no history
+      financialSummarySection.style.display = 'none';
+      financialHistoryListSection.style.display = 'none';
+      viewHistoryBtn.style.display = 'none';
     }
 
     // Add event listener for history items
