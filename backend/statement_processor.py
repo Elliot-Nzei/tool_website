@@ -63,18 +63,24 @@ def find_recurring_transactions(df):
     return recurring_list
 
 
-def process_statement(csv_path):
+def process_statement(file_path):
     """
-    Processes a bank statement CSV file and returns a JSON object with financial analysis.
-    Assumes CSV has columns: 'Date', 'Description', 'Amount'
+    Processes a bank statement file (CSV or Excel) and returns a JSON object with financial analysis.
+    Assumes the file has columns: 'Date', 'Description', 'Amount'
     """
     try:
-        df = pd.read_csv(csv_path)
+        if file_path.endswith('.csv'):
+            df = pd.read_csv(file_path)
+        elif file_path.endswith('.xlsx') or file_path.endswith('.xls'):
+            df = pd.read_excel(file_path)
+        else:
+            return json.dumps({"error": "Unsupported file type. Please upload a CSV or Excel file."})
+        
         df.columns = ['Date', 'Description', 'Amount'] # Standardize column names
     except FileNotFoundError:
         return json.dumps({"error": "File not found. Please provide a valid path."})
     except Exception as e:
-        return json.dumps({"error": f"Error reading CSV: {e}"})
+        return json.dumps({"error": f"Error reading file: {e}"})
 
     # --- Data Cleaning and Preparation ---
     df['Date'] = pd.to_datetime(df['Date'])

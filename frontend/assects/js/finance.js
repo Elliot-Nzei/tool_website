@@ -191,26 +191,42 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadStatusDiv.textContent = 'Processing statement...';
     uploadStatusDiv.style.color = '#17a2b8';
 
-    // Simulate backend processing
-    setTimeout(() => {
-      const currencySymbol = currencySymbols[currency];
-      const dummyData = getDummyFinancialData(currencySymbol);
+    const formData = new FormData();
+    formData.append('file', bankStatementFile.files[0]);
 
-      const newAnalysis = {
-        id: Date.now(), // Unique ID
-        timestamp: new Date().toISOString(),
-        currency: currency,
-        data: dummyData
-      };
-      saveFinancialAnalysis(newAnalysis);
+    fetch('http://127.0.0.1:5000/process_statement', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.error) {
+        uploadStatusDiv.textContent = `Error: ${data.error}`;
+        uploadStatusDiv.style.color = '#dc3545';
+        window.showNotification(`Error processing statement: ${data.error}`, 'error');
+      } else {
+        const currencySymbol = currencySymbols[currency];
+        const newAnalysis = {
+          id: Date.now(), // Unique ID
+          timestamp: new Date().toISOString(),
+          currency: currency,
+          data: data
+        };
+        saveFinancialAnalysis(newAnalysis);
 
-      updateUI(dummyData, currencySymbol);
-      uploadStatusDiv.textContent = 'Statement processed successfully!';
-      uploadStatusDiv.style.color = '#28a745';
-      window.showNotification('Financial summary updated and saved!', 'success');
-
-      viewHistoryBtn.style.display = 'block'; // Ensure history button is visible
-    }, 2000);
+        updateUI(data, currencySymbol);
+        uploadStatusDiv.textContent = 'Statement processed successfully!';
+        uploadStatusDiv.style.color = '#28a745';
+        window.showNotification('Financial summary updated and saved!', 'success');
+        viewHistoryBtn.style.display = 'block'; // Ensure history button is visible
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      uploadStatusDiv.textContent = 'Error processing statement.';
+      uploadStatusDiv.style.color = '#dc3545';
+      window.showNotification('An unexpected error occurred during processing.', 'error');
+    });
   };
 
   const handleViewHistoryClick = () => {
