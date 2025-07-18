@@ -283,34 +283,44 @@ body.dark-mode .navbar {
   transform: translateY(-3px);
 }
 
-/* APP NOTIFICATION */
-.app-notification {
+/* NOTIFICATION SYSTEM */
+#notification-container {
   position: fixed;
-  top: 20px;
+  top: 5rem; /* Position below the navbar */
   left: 50%;
   transform: translateX(-50%);
-  background-color: #4CAF50; /* Default success color */
-  color: white;
-  padding: 15px 25px;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notification {
+  padding: 1rem 1.5rem;
   border-radius: 8px;
+  color: #fff;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 10000;
   opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-  min-width: 250px;
+  transform: translateY(-20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  min-width: 280px;
   text-align: center;
 }
 
-.app-notification.show {
+.notification.show {
   opacity: 1;
-  visibility: visible;
+  transform: translateY(0);
 }
 
-.app-notification.error {
-  background-color: #f44336; /* Error color */
+.notification.success {
+  background-color: #28a745;
 }
 
-.app-notification.info {
-  background-color: #2196F3; /* Info color */
+.notification.error {
+  background-color: #dc3545;
+}
+
+.notification.info {
+  background-color: #17a2b8;
 }

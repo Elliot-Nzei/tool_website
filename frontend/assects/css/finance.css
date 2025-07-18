@@ -1,5 +1,5 @@
 .finance-dashboard {
-  padding: 2rem 1rem; /* Space for fixed navbar and tabbar */
+  padding: 6rem 1rem 2rem; /* Adjusted top padding */
   max-width: 800px;
   margin: auto;
   text-align: center;

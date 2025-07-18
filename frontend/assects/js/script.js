@@ -1,7 +1,5 @@
-  
-
 document.addEventListener('DOMContentLoaded', () => {
-  // --- Language Translation Data ---
+  // --- TRANSLATIONS ---
   const translations = {
     en: {
       toolMaster: "ToolMaster",
@@ -117,8 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
       uploadInstructions: "Po alaye banki rẹ si (CSV tabi PDF ni a gbaniyanju):",
       processStatement: "Ṣe ilana Alaye",
       financialSummary: "Akopọ Isuna",
-      totalIncome: "Apapọ Owo-wiwọle:
-",
+      totalIncome: "Apapọ Owo-wiwọle:",
       totalExpenses: "Apapọ Awọn inawo:",
       spendingCategories: "Awọn ẹka inawo",
       addModule: "Fi Module kun",
@@ -210,137 +207,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const applyLanguage = (lang) => {
-    document.querySelectorAll('[data-i18n]').forEach(element => {
-      const key = element.getAttribute('data-i18n');
-      if (translations[lang] && translations[lang][key]) {
-        element.textContent = translations[lang][key];
-      }
-    });
-    // Update page title
-    const pageTitle = document.querySelector('title');
-    if (pageTitle) {
-      const titleKey = pageTitle.getAttribute('data-i18n-title');
-      if (translations[lang] && translations[lang][titleKey]) {
-        pageTitle.textContent = translations[lang][titleKey];
-      }
-    }
-  };
-
-  // Set initial language from localStorage or default to 'en'
-  let currentLanguage = localStorage.getItem('language') || 'en';
-  applyLanguage(currentLanguage);
-
-  // Update the language select dropdown
+  // --- DOM Elements ---
   const langSelect = document.getElementById('langSelect');
-  if (langSelect) {
-    langSelect.value = currentLanguage;
-    langSelect.addEventListener('change', (e) => {
-      currentLanguage = e.target.value;
-      localStorage.setItem('language', currentLanguage);
-      applyLanguage(currentLanguage);
-    });
-  }
-
   const darkToggleButton = document.getElementById("darkToggle");
   const themeToggle = document.getElementById("themeToggle");
   const tabPlusButton = document.getElementById("tabPlus");
-
-  // Function to apply the dark mode state
-  const applyDarkMode = (isDark) => {
-    document.body.classList.toggle("dark-mode", isDark);
-    const darkToggleIcon = darkToggleButton ? darkToggleButton.querySelector("i") : null;
-    if (darkToggleIcon) {
-      if (isDark) {
-        darkToggleIcon.classList.remove("fa-moon");
-        darkToggleIcon.classList.add("fa-sun");
-      } else {
-        darkToggleIcon.classList.remove("fa-sun");
-        darkToggleIcon.classList.add("fa-moon");
-      }
-    }
-    if (themeToggle) {
-      themeToggle.checked = isDark;
-    }
-  };
-
-  // Check for saved dark mode preference and apply on load
-  const savedDarkMode = localStorage.getItem('darkMode') === 'true';
-  applyDarkMode(savedDarkMode);
-
-  // Event listener for the main dark mode toggle button
-  if (darkToggleButton) {
-    darkToggleButton.addEventListener("click", () => {
-      const isDarkMode = !document.body.classList.contains("dark-mode");
-      localStorage.setItem('darkMode', isDarkMode);
-      applyDarkMode(isDarkMode);
-    });
-  }
-
-  // Event listener for the theme toggle on the account page
-  if (themeToggle) {
-    themeToggle.addEventListener("change", (e) => {
-      const isDarkMode = e.target.checked;
-      localStorage.setItem('darkMode', isDarkMode);
-      applyDarkMode(isDarkMode);
-    });
-  }
-
-  // Event listener for the module launcher button
-  if (document.getElementById("moduleBtn")) {
-    document.getElementById("moduleBtn").addEventListener("click", () => {
-      window.showNotification('Redirecting to module selection...', 'info');
-      setTimeout(() => { window.location.href = 'add_module.html'; }, 500);
-    });
-  }
-
-  // Event listener for the tab plus button
-  if (tabPlusButton) {
-    tabPlusButton.addEventListener("click", () => {
-      window.showNotification('Redirecting to module selection...', 'info');
-      setTimeout(() => { window.location.href = 'add_module.html'; }, 500);
-    });
-  }
-
-  // Event listener for module cards on add_module.html
+  const moduleBtn = document.getElementById("moduleBtn");
   const financeModuleCard = document.getElementById("financeModuleCard");
-  if (financeModuleCard) {
-    financeModuleCard.addEventListener("click", () => {
-      window.location.href = 'finance.html';
-    });
-  }
-
-  // Photo upload logic for account page
   const uploadPhotoBtn = document.getElementById("uploadPhotoBtn");
   const photoUploadInput = document.getElementById("photoUpload");
   const profileImage = document.getElementById("profileImage");
-
-  // Load saved profile image from localStorage on page load
-  const savedProfileImage = localStorage.getItem('profileImage');
-  if (savedProfileImage && profileImage) {
-    profileImage.src = savedProfileImage;
-  }
-
-  if (uploadPhotoBtn && photoUploadInput && profileImage) {
-    uploadPhotoBtn.addEventListener("click", () => {
-      photoUploadInput.click();
-    });
-
-    photoUploadInput.addEventListener("change", (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          profileImage.src = e.target.result;
-          localStorage.setItem('profileImage', e.target.result); // Save image to localStorage
-          window.showNotification('Profile image updated!', 'success');
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-  }
-
-  // Profile Edit Logic
   const displayName = document.getElementById("displayName");
   const displayEmail = document.getElementById("displayEmail");
   const nameInput = document.getElementById("nameInput");
@@ -353,38 +229,161 @@ document.addEventListener('DOMContentLoaded', () => {
   let originalName = displayName ? displayName.textContent : '';
   let originalEmail = displayEmail ? displayEmail.textContent : '';
 
-  // Load saved profile data from localStorage on page load
-  const savedName = localStorage.getItem('userName');
-  const savedEmail = localStorage.getItem('userEmail');
+  // --- FUNCTIONS ---
 
-  if (savedName && displayName && nameInput) {
-    displayName.textContent = savedName;
-    nameInput.value = savedName;
-    originalName = savedName;
-  }
-  if (savedEmail && displayEmail && emailInput) {
-    displayEmail.textContent = savedEmail;
-    emailInput.value = savedEmail;
-    originalEmail = savedEmail;
-  }
-
-  // Function to toggle visibility of display text and input field for a specific field
-  const toggleFieldEditMode = (field, isEditing) => {
-    if (field === "name") {
-      if (displayName) displayName.style.display = isEditing ? "none" : "block";
-      if (nameInput) nameInput.style.display = isEditing ? "block" : "none";
-      if (isEditing && nameInput) nameInput.focus();
-    } else if (field === "email") {
-      if (displayEmail) displayEmail.style.display = isEditing ? "none" : "block";
-      if (emailInput) emailInput.style.display = isEditing ? "block" : "none";
-      if (isEditing && emailInput) emailInput.focus();
+  /**
+   * Applies the selected language to the UI.
+   * @param {string} lang - The language code (e.g., 'en', 'yo', 'fr').
+   */
+  const applyLanguage = (lang) => {
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (translations[lang] && translations[lang][key]) {
+        element.textContent = translations[lang][key];
+      }
+    });
+    const pageTitle = document.querySelector('title');
+    if (pageTitle) {
+      const titleKey = pageTitle.getAttribute('data-i18n-title');
+      if (translations[lang] && translations[lang][titleKey]) {
+        pageTitle.textContent = translations[lang][titleKey];
+      }
     }
   };
 
-  // Initialize profile fields to display mode on load
-  if (displayName && nameInput) toggleFieldEditMode("name", false);
-  if (displayEmail && emailInput) toggleFieldEditMode("email", false);
-  if (profileActions) profileActions.style.display = "none";
+  /**
+   * Applies the dark mode state to the UI.
+   * @param {boolean} isDark - Whether dark mode is enabled.
+   */
+  const applyDarkMode = (isDark) => {
+    document.body.classList.toggle("dark-mode", isDark);
+    const darkToggleIcon = darkToggleButton ? darkToggleButton.querySelector("i") : null;
+    if (darkToggleIcon) {
+      darkToggleIcon.classList.toggle("fa-sun", isDark);
+      darkToggleIcon.classList.toggle("fa-moon", !isDark);
+    }
+    if (themeToggle) {
+      themeToggle.checked = isDark;
+    }
+  };
+
+  /**
+   * Initializes the language settings.
+   */
+  const initializeLanguage = () => {
+    let currentLanguage = localStorage.getItem('language') || 'en';
+    applyLanguage(currentLanguage);
+    if (langSelect) {
+      langSelect.value = currentLanguage;
+    }
+  };
+
+  /**
+   * Initializes the dark mode settings.
+   */
+  const initializeDarkMode = () => {
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    applyDarkMode(savedDarkMode);
+  };
+
+  /**
+   * Initializes the profile fields and loads data from localStorage.
+   */
+  const initializeProfile = () => {
+    const savedName = localStorage.getItem('userName');
+    const savedEmail = localStorage.getItem('userEmail');
+    const savedProfileImage = localStorage.getItem('profileImage');
+
+    if (savedName && displayName && nameInput) {
+      displayName.textContent = savedName;
+      nameInput.value = savedName;
+      originalName = savedName;
+    }
+    if (savedEmail && displayEmail && emailInput) {
+      displayEmail.textContent = savedEmail;
+      emailInput.value = savedEmail;
+      originalEmail = savedEmail;
+    }
+    if (savedProfileImage && profileImage) {
+      profileImage.src = savedProfileImage;
+    }
+
+    toggleFieldEditMode("name", false);
+    toggleFieldEditMode("email", false);
+    if (profileActions) profileActions.style.display = "none";
+  };
+
+  /**
+   * Toggles the edit mode for a profile field.
+   * @param {string} field - The field to toggle ('name' or 'email').
+   * @param {boolean} isEditing - Whether to enable edit mode.
+   */
+  const toggleFieldEditMode = (field, isEditing) => {
+    const displayEl = field === "name" ? displayName : displayEmail;
+    const inputEl = field === "name" ? nameInput : emailInput;
+
+    if (displayEl) displayEl.style.display = isEditing ? "none" : "block";
+    if (inputEl) inputEl.style.display = isEditing ? "block" : "none";
+    if (isEditing && inputEl) inputEl.focus();
+  };
+
+  // --- EVENT LISTENERS ---
+
+  if (langSelect) {
+    langSelect.addEventListener('change', (e) => {
+      const newLanguage = e.target.value;
+      localStorage.setItem('language', newLanguage);
+      applyLanguage(newLanguage);
+    });
+  }
+
+  if (darkToggleButton) {
+    darkToggleButton.addEventListener("click", () => {
+      const isDarkMode = !document.body.classList.contains("dark-mode");
+      localStorage.setItem('darkMode', isDarkMode);
+      applyDarkMode(isDarkMode);
+    });
+  }
+
+  if (themeToggle) {
+    themeToggle.addEventListener("change", (e) => {
+      const isDarkMode = e.target.checked;
+      localStorage.setItem('darkMode', isDarkMode);
+      applyDarkMode(isDarkMode);
+    });
+  }
+
+  const setupRedirect = (element, url, message) => {
+    if (element) {
+      element.addEventListener("click", () => {
+        if (message) {
+          window.showNotification(message, 'success');
+        }
+        setTimeout(() => { window.location.href = url; }, 500);
+      });
+    }
+  };
+
+  setupRedirect(moduleBtn, 'add_module.html', 'Initiating modules...');
+  setupRedirect(tabPlusButton, 'add_module.html', 'Initiating modules...');
+  setupRedirect(financeModuleCard, 'finance.html');
+
+  if (uploadPhotoBtn && photoUploadInput) {
+    uploadPhotoBtn.addEventListener("click", () => photoUploadInput.click());
+
+    photoUploadInput.addEventListener("change", (event) => {
+      const file = event.target.files[0];
+      if (file && profileImage) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          profileImage.src = e.target.result;
+          localStorage.setItem('profileImage', e.target.result);
+          window.showNotification('Profile image updated!', 'success');
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
 
   editButtons.forEach(button => {
     button.addEventListener("click", (e) => {
@@ -397,18 +396,21 @@ document.addEventListener('DOMContentLoaded', () => {
   if (saveProfileBtn) {
     saveProfileBtn.addEventListener("click", () => {
       if (displayName && nameInput) {
-        displayName.textContent = nameInput.value;
-        localStorage.setItem('userName', nameInput.value);
+        const newName = nameInput.value;
+        displayName.textContent = newName;
+        localStorage.setItem('userName', newName);
+        originalName = newName;
       }
       if (displayEmail && emailInput) {
-        displayEmail.textContent = emailInput.value;
-        localStorage.setItem('userEmail', emailInput.value);
+        const newEmail = emailInput.value;
+        displayEmail.textContent = newEmail;
+        localStorage.setItem('userEmail', newEmail);
+        originalEmail = newEmail;
       }
-      originalName = nameInput ? nameInput.value : originalName;
-      originalEmail = emailInput ? emailInput.value : originalEmail;
       toggleFieldEditMode("name", false);
       toggleFieldEditMode("email", false);
       if (profileActions) profileActions.style.display = "none";
+      window.showNotification('Profile saved!', 'success');
     });
   }
 
@@ -421,4 +423,38 @@ document.addEventListener('DOMContentLoaded', () => {
       if (profileActions) profileActions.style.display = "none";
     });
   }
+
+  // --- INITIALIZATION ---
+  initializeLanguage();
+  initializeDarkMode();
+  initializeProfile();
 });
+
+// --- GLOBAL NOTIFICATION SYSTEM ---
+window.showNotification = function(message, type = 'info') {
+  const container = document.getElementById('notification-container');
+  if (!container) {
+    console.error('Notification container not found!');
+    return;
+  }
+
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.textContent = message;
+
+  container.appendChild(notification);
+
+  // Trigger the animation
+  setTimeout(() => {
+    notification.classList.add('show');
+  }, 10);
+
+  // Remove the notification after a few seconds
+  setTimeout(() => {
+    notification.classList.remove('show');
+    // Remove the element from the DOM after the animation ends
+    notification.addEventListener('transitionend', () => {
+      notification.remove();
+    });
+  }, 3000); // Shortened to 3 seconds
+}

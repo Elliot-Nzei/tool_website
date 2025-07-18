@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Finance Page Logic
+  // DOM Elements
   const salaryAmountInput = document.getElementById("salaryAmount");
   const saveAndProcessBtn = document.getElementById("saveAndProcessBtn");
   const currencySelect = document.getElementById("currencySelect");
@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const bankStatementFile = document.getElementById("bankStatementFile");
   const selectFileBtn = document.getElementById("selectFileBtn");
   const selectedFileNameSpan = document.getElementById("selectedFileName");
-  const processStatementBtn = document.getElementById("processStatementBtn");
   const uploadStatusDiv = document.getElementById("uploadStatus");
   const financialSummarySection = document.querySelector(".financial-summary-section");
   const totalIncomeSpan = document.getElementById("totalIncome");
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const netSavingsSpan = document.getElementById("netSavings");
   const highestExpenseSpan = document.getElementById("highestExpense");
   const spendingCategoriesList = document.getElementById("spendingCategoriesList");
+  const recentTransactionsList = document.getElementById("recentTransactionsList");
   const spendingChartCanvas = document.getElementById('spendingChart');
   const incomeExpenseChartCanvas = document.getElementById('incomeExpenseChart');
 
@@ -26,153 +26,189 @@ document.addEventListener('DOMContentLoaded', () => {
     GBP: '£'
   };
 
-  // Load saved salary and currency
-  if (salaryAmountInput && currencySelect && currencySymbolSpan) {
+  let spendingChart, incomeExpenseChart;
+
+  // --- FUNCTIONS ---
+
+  /**
+   * Updates the financial summary section with dummy data.
+   * @param {string} currencySymbol - The currency symbol to use.
+   */
+  const updateFinancialSummary = (currencySymbol) => {
+    if (financialSummarySection) financialSummarySection.style.display = 'block';
+
+    const summaryData = {
+      income: 500000,
+      expenses: 350000,
+      savings: 150000,
+      highestExpense: 120000,
+      highestExpenseCategory: "Groceries"
+    };
+
+    if (totalIncomeSpan) totalIncomeSpan.textContent = `${currencySymbol}${summaryData.income.toLocaleString()}`;
+    if (totalExpensesSpan) totalExpensesSpan.textContent = `${currencySymbol}${summaryData.expenses.toLocaleString()}`;
+    if (netSavingsSpan) netSavingsSpan.textContent = `${currencySymbol}${summaryData.savings.toLocaleString()}`;
+    if (highestExpenseSpan) highestExpenseSpan.textContent = `${currencySymbol}${summaryData.highestExpense.toLocaleString()} (${summaryData.highestExpenseCategory})`;
+
+    updateTransactionList(currencySymbol);
+    updateSpendingCategories(currencySymbol);
+    createOrUpdateCharts(currencySymbol, summaryData);
+  };
+
+  /**
+   * Updates the recent transactions list with dummy data.
+   * @param {string} currencySymbol - The currency symbol to use.
+   */
+  const updateTransactionList = (currencySymbol) => {
+    if (recentTransactionsList) {
+      recentTransactionsList.innerHTML = `
+        <li><span class="transaction-date">2024-07-10</span> - <span class="transaction-description">Groceries</span>: <span class="transaction-amount">${currencySymbol}120,000</span></li>
+        <li><span class="transaction-date">2024-07-08</span> - <span class="transaction-description">Electricity Bill</span>: <span class="transaction-amount">${currencySymbol}15,000</span></li>
+        <li><span class="transaction-date">2024-07-05</span> - <span class="transaction-description">Salary</span>: <span class="transaction-amount">${currencySymbol}500,000</span></li>
+      `;
+    }
+  };
+
+  /**
+   * Updates the spending categories list with dummy data.
+   * @param {string} currencySymbol - The currency symbol to use.
+   */
+  const updateSpendingCategories = (currencySymbol) => {
+    if (spendingCategoriesList) {
+      spendingCategoriesList.innerHTML = `
+        <li>Food <span>${currencySymbol}100,000</span></li>
+        <li>Transport <span>${currencySymbol}50,000</span></li>
+        <li>Rent <span>${currencySymbol}150,000</span></li>
+        <li>Utilities <span>${currencySymbol}30,000</span></li>
+      `;
+    }
+  };
+
+  /**
+   * Creates or updates the financial charts.
+   * @param {string} currencySymbol - The currency symbol to use.
+   * @param {object} summaryData - The financial summary data.
+   */
+  const createOrUpdateCharts = (currencySymbol, summaryData) => {
+    const spendingData = {
+      labels: ['Food', 'Transport', 'Rent', 'Utilities'],
+      datasets: [{
+        data: [100000, 50000, 150000, 30000],
+        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
+      }]
+    };
+
+    const incomeExpenseData = {
+      labels: ['Income', 'Expenses'],
+      datasets: [{
+        data: [summaryData.income, summaryData.expenses],
+        backgroundColor: ['#28a745', '#dc3545'],
+      }]
+    };
+
+    if (spendingChartCanvas) {
+      if (spendingChart) spendingChart.destroy();
+      spendingChart = new Chart(spendingChartCanvas, {
+        type: 'pie',
+        data: spendingData,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'top' },
+            title: { display: true, text: 'Spending Breakdown' }
+          }
+        },
+      });
+    }
+
+    if (incomeExpenseChartCanvas) {
+      if (incomeExpenseChart) incomeExpenseChart.destroy();
+      incomeExpenseChart = new Chart(incomeExpenseChartCanvas, {
+        type: 'bar',
+        data: incomeExpenseData,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: { display: true, text: 'Income vs. Expenses' }
+          },
+          scales: { y: { beginAtZero: true } }
+        },
+      });
+    }
+  };
+
+  /**
+   * Loads saved salary and currency from localStorage.
+   */
+  const loadSavedData = () => {
+    if (!salaryAmountInput || !currencySelect || !currencySymbolSpan) return;
+
     const savedSalary = localStorage.getItem('monthlySalary');
-    const savedCurrency = localStorage.getItem('currency');
+    const savedCurrency = localStorage.getItem('currency') || 'NGN'; // Default to NGN
 
     if (savedSalary) {
       salaryAmountInput.value = savedSalary;
     }
-    if (savedCurrency) {
-      currencySelect.value = savedCurrency;
-      currencySymbolSpan.textContent = currencySymbols[savedCurrency];
+    currencySelect.value = savedCurrency;
+    currencySymbolSpan.textContent = currencySymbols[savedCurrency];
+  };
+
+  /**
+   * Handles the main "Save & Process" button click event.
+   */
+  const handleSaveAndProcess = () => {
+    // Save salary and currency
+    const salary = salaryAmountInput.value;
+    const currency = currencySelect.value;
+    localStorage.setItem('monthlySalary', salary);
+    localStorage.setItem('currency', currency);
+    window.showNotification(`Monthly salary of ${currencySymbols[currency]}${salary} saved!`, 'success');
+
+    // Process statement if a file is selected
+    if (bankStatementFile && bankStatementFile.files.length > 0) {
+      uploadStatusDiv.textContent = 'Processing statement... (Backend integration needed)';
+      uploadStatusDiv.style.color = '#3498db'; // Blue for processing
+
+      // Simulate processing
+      setTimeout(() => {
+        uploadStatusDiv.textContent = 'Statement processed! (Dummy data shown)';
+        uploadStatusDiv.style.color = '#28a745'; // Green for success
+        updateFinancialSummary(currencySymbols[currency]);
+      }, 2000);
     } else {
-      // Default to NGN if no currency saved
-      currencySelect.value = 'NGN';
-      currencySymbolSpan.textContent = currencySymbols['NGN'];
+      uploadStatusDiv.textContent = 'Please select a file to upload.';
+      uploadStatusDiv.style.color = '#e74c3c'; // Red for error
+      window.showNotification('Please select a file to upload.', 'error');
     }
+  };
 
+  // --- EVENT LISTENERS ---
+
+  if (currencySelect) {
     currencySelect.addEventListener('change', () => {
-      currencySymbolSpan.textContent = currencySymbols[currencySelect.value];
-      localStorage.setItem('currency', currencySelect.value);
+      const newCurrency = currencySelect.value;
+      currencySymbolSpan.textContent = currencySymbols[newCurrency];
+      localStorage.setItem('currency', newCurrency);
     });
   }
 
-  // Handle Save & Process button click
   if (saveAndProcessBtn) {
-    saveAndProcessBtn.addEventListener('click', () => {
-      // Save salary and currency
-      localStorage.setItem('monthlySalary', salaryAmountInput.value);
-      localStorage.setItem('currency', currencySelect.value);
-      window.showNotification(`Monthly salary of ${currencySymbols[currencySelect.value]}${salaryAmountInput.value} saved!`, 'success');
-
-      // Process statement if a file is selected
-      if (bankStatementFile && bankStatementFile.files.length > 0) {
-        uploadStatusDiv.textContent = 'Processing statement... (Backend integration needed)';
-        uploadStatusDiv.style.color = '#3498db'; // Blue for processing
-        // Simulate processing
-        setTimeout(() => {
-          uploadStatusDiv.textContent = 'Statement processed! (Dummy data shown)';
-          uploadStatusDiv.style.color = '#28a745'; // Green for success
-          // Display dummy financial summary
-          if (financialSummarySection) financialSummarySection.style.display = 'block';
-          const currentCurrencySymbol = currencySymbols[currencySelect.value];
-
-          if (totalIncomeSpan) totalIncomeSpan.textContent = `${currentCurrencySymbol}500,000.00`;
-          if (totalExpensesSpan) totalExpensesSpan.textContent = `${currentCurrencySymbol}350,000.00`;
-          if (netSavingsSpan) netSavingsSpan.textContent = `${currentCurrencySymbol}150,000.00`;
-          if (highestExpenseSpan) highestExpenseSpan.textContent = `${currentCurrencySymbol}120,000.00 (Groceries)`;
-
-          // Populate recent transactions
-          const recentTransactionsList = document.getElementById("recentTransactionsList");
-          if (recentTransactionsList) {
-            recentTransactionsList.innerHTML = `
-              <li><span class="transaction-date">2024-07-10</span> - <span class="transaction-description">Groceries</span>: <span class="transaction-amount">${currentCurrencySymbol}120,000</span></li>
-              <li><span class="transaction-date">2024-07-08</span> - <span class="transaction-description">Electricity Bill</span>: <span class="transaction-amount">${currentCurrencySymbol}15,000</span></li>
-              <li><span class="transaction-date">2024-07-05</span> - <span class="transaction-description">Salary</span>: <span class="transaction-amount">${currentCurrencySymbol}500,000</span></li>
-            `;
-          }
-
-          if (spendingCategoriesList) {
-            spendingCategoriesList.innerHTML = `
-              <li>Food <span>${currentCurrencySymbol}100,000</span></li>
-              <li>Transport <span>${currentCurrencySymbol}50,000</span></li>
-              <li>Rent <span>${currentCurrencySymbol}150,000</span></li>
-              <li>Utilities <span>${currentCurrencySymbol}30,000</span></li>
-            `;
-          }
-
-          // Dummy data for charts
-          const spendingData = {
-            labels: ['Food', 'Transport', 'Rent', 'Utilities'],
-            datasets: [{
-              data: [100000, 50000, 150000, 30000],
-              backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-            }]
-          };
-
-          const incomeExpenseData = {
-            labels: ['Income', 'Expenses'],
-            datasets: [{
-              data: [500000, 350000],
-              backgroundColor: ['#28a745', '#dc3545'],
-            }]
-          };
-
-          if (spendingChartCanvas) {
-            new Chart(spendingChartCanvas, {
-              type: 'pie',
-              data: spendingData,
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: {
-                    position: 'top',
-                  },
-                  title: {
-                    display: true,
-                    text: 'Spending Breakdown'
-                  }
-                }
-              },
-            });
-          }
-
-          if (incomeExpenseChartCanvas) {
-            new Chart(incomeExpenseChartCanvas, {
-              type: 'bar',
-              data: incomeExpenseData,
-              options: {
-                responsive: true,
-                plugins: {
-                  legend: {
-                    display: false,
-                  },
-                  title: {
-                    display: true,
-                    text: 'Income vs. Expenses'
-                  }
-                },
-                scales: {
-                  y: {
-                    beginAtZero: true
-                  }
-                }
-              },
-            });
-          }
-
-        }, 2000);
-      } else {
-        uploadStatusDiv.textContent = 'Please select a file to upload.';
-        uploadStatusDiv.style.color = '#e74c3c'; // Red for error
-        window.showNotification('Please select a file to upload.', 'error');
-      }
-    });
+    saveAndProcessBtn.addEventListener('click', handleSaveAndProcess);
   }
 
-  // Handle file selection
-  if (selectFileBtn && bankStatementFile && selectedFileNameSpan) {
-    selectFileBtn.addEventListener('click', () => {
-      bankStatementFile.click();
-    });
+  if (selectFileBtn && bankStatementFile) {
+    selectFileBtn.addEventListener('click', () => bankStatementFile.click());
 
     bankStatementFile.addEventListener('change', () => {
-      if (bankStatementFile.files.length > 0) {
-        selectedFileNameSpan.textContent = bankStatementFile.files[0].name;
-      } else {
-        selectedFileNameSpan.textContent = 'No file chosen';
+      if (selectedFileNameSpan) {
+        selectedFileNameSpan.textContent = bankStatementFile.files.length > 0
+          ? bankStatementFile.files[0].name
+          : 'No file chosen';
       }
     });
   }
+
+  // --- INITIALIZATION ---
+  loadSavedData();
+});
