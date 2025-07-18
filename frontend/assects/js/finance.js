@@ -9,6 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectedFileNameSpan = document.getElementById("selectedFileName");
   const uploadStatusDiv = document.getElementById("uploadStatus");
   const financialSummarySection = document.querySelector(".financial-summary-section");
+  const viewHistoryBtn = document.getElementById("viewHistoryBtn");
+  const financialHistoryListSection = document.getElementById("financialHistoryListSection");
+  const financialHistoryList = document.getElementById("financialHistoryList");
 
   // Summary Section Elements
   const totalIncomeSpan = document.getElementById("totalIncome");
@@ -69,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // Create or update charts
     createOrUpdateCharts(data, currencySymbol);
 
-    // Show the summary section
-    if (financialSummarySection) financialSummarySection.style.display = 'block';
+    // Show the summary section and hide history list
+    financialSummarySection.style.display = 'block';
+    financialHistoryListSection.style.display = 'none';
+    viewHistoryBtn.textContent = 'Hide Financial History';
   };
 
   const populateList = (listElement, items, currencySymbol) => {
@@ -129,6 +134,47 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // --- HISTORY MANAGEMENT ---
+
+  const getFinancialHistory = () => {
+    const history = localStorage.getItem('financialAnalysesHistory');
+    return history ? JSON.parse(history) : [];
+  };
+
+  const saveFinancialAnalysis = (analysis) => {
+    const history = getFinancialHistory();
+    history.push(analysis);
+    localStorage.setItem('financialAnalysesHistory', JSON.stringify(history));
+  };
+
+  const populateHistoryList = () => {
+    const history = getFinancialHistory();
+    financialHistoryList.innerHTML = ''; // Clear existing list
+
+    if (history.length === 0) {
+      financialHistoryList.innerHTML = '<li>No saved analyses yet.</li>';
+      return;
+    }
+
+    history.forEach((entry, index) => {
+      const li = document.createElement('li');
+      li.classList.add('history-item');
+      li.dataset.index = index; // Store index for easy retrieval
+      li.textContent = `Analysis from ${new Date(entry.timestamp).toLocaleString()} (${currencySymbols[entry.currency]})`;
+      financialHistoryList.appendChild(li);
+    });
+  };
+
+  const loadSpecificAnalysis = (index) => {
+    const history = getFinancialHistory();
+    if (index >= 0 && index < history.length) {
+      const entry = history[index];
+      updateUI(entry.data, currencySymbols[entry.currency]);
+    } else {
+      window.showNotification('Error: Analysis not found.', 'error');
+    }
+  };
+
   // --- EVENT HANDLERS ---
 
   const handleSaveAndProcess = () => {
@@ -149,23 +195,65 @@ document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
       const currencySymbol = currencySymbols[currency];
       const dummyData = getDummyFinancialData(currencySymbol);
+
+      const newAnalysis = {
+        id: Date.now(), // Unique ID
+        timestamp: new Date().toISOString(),
+        currency: currency,
+        data: dummyData
+      };
+      saveFinancialAnalysis(newAnalysis);
+
       updateUI(dummyData, currencySymbol);
       uploadStatusDiv.textContent = 'Statement processed successfully!';
       uploadStatusDiv.style.color = '#28a745';
-      window.showNotification('Financial summary updated!', 'success');
+      window.showNotification('Financial summary updated and saved!', 'success');
+
+      viewHistoryBtn.style.display = 'block'; // Ensure history button is visible
     }, 2000);
   };
 
-  const loadSavedData = () => {
+  const handleViewHistoryClick = () => {
+    if (financialHistoryListSection.style.display === 'block') {
+      // If history is visible, hide it and show summary if one is loaded
+      financialHistoryListSection.style.display = 'none';
+      if (financialSummarySection.style.display === 'block') {
+        viewHistoryBtn.textContent = 'Hide Financial History';
+      } else {
+        viewHistoryBtn.textContent = 'View Financial History';
+      }
+    } else {
+      // If history is hidden, show it and hide summary
+      financialSummarySection.style.display = 'none';
+      financialHistoryListSection.style.display = 'block';
+      populateHistoryList();
+      viewHistoryBtn.textContent = 'Hide Financial History';
+    }
+  };
+
+  // --- INITIALIZATION ---
+  const initializeFinancePage = () => {
     const savedSalary = localStorage.getItem('monthlySalary');
     const savedCurrency = localStorage.getItem('currency') || 'NGN';
-    if (savedSalary) salaryAmountInput.value = savedSalary;
-    currencySelect.value = savedCurrency;
-    currencySymbolSpan.textContent = currencySymbols[savedCurrency];
+    if (salaryAmountInput) salaryAmountInput.value = savedSalary;
+    if (currencySelect) currencySelect.value = savedCurrency;
+    if (currencySymbolSpan) currencySymbolSpan.textContent = currencySymbols[savedCurrency];
+
+    // Check if there's any history to show the button
+    if (getFinancialHistory().length > 0) {
+      viewHistoryBtn.style.display = 'block';
+    }
+
+    // Add event listener for history items
+    financialHistoryList.addEventListener('click', (event) => {
+      if (event.target.classList.contains('history-item')) {
+        const index = parseInt(event.target.dataset.index);
+        loadSpecificAnalysis(index);
+      }
+    });
   };
 
   // --- EVENT LISTENERS ---
-
   if (currencySelect) {
     currencySelect.addEventListener('change', () => {
       const newCurrency = currencySelect.value;
@@ -187,6 +275,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- INITIALIZATION ---
-  loadSavedData();
+  if (viewHistoryBtn) {
+    viewHistoryBtn.addEventListener('click', handleViewHistoryClick);
+  }
+
+  initializeFinancePage();
 });
