@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // DOM Elements
+  // --- DOM Elements ---
   const salaryAmountInput = document.getElementById("salaryAmount");
   const saveAndProcessBtn = document.getElementById("saveAndProcessBtn");
   const currencySelect = document.getElementById("currencySelect");
@@ -9,178 +9,159 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectedFileNameSpan = document.getElementById("selectedFileName");
   const uploadStatusDiv = document.getElementById("uploadStatus");
   const financialSummarySection = document.querySelector(".financial-summary-section");
+
+  // Summary Section Elements
   const totalIncomeSpan = document.getElementById("totalIncome");
   const totalExpensesSpan = document.getElementById("totalExpenses");
   const netSavingsSpan = document.getElementById("netSavings");
   const highestExpenseSpan = document.getElementById("highestExpense");
-  const spendingCategoriesList = document.getElementById("spendingCategoriesList");
-  const recentTransactionsList = document.getElementById("recentTransactionsList");
   const spendingChartCanvas = document.getElementById('spendingChart');
   const incomeExpenseChartCanvas = document.getElementById('incomeExpenseChart');
+  const recurringExpensesList = document.getElementById("recurringExpensesList");
+  const recentTransactionsList = document.getElementById("recentTransactionsList");
 
-  // Currency symbols mapping
-  const currencySymbols = {
-    NGN: '₦',
-    USD: '$',
-    EUR: '€',
-    GBP: '£'
-  };
-
+  const currencySymbols = { NGN: '₦', USD: '$', EUR: '€', GBP: '£' };
   let spendingChart, incomeExpenseChart;
 
-  // --- FUNCTIONS ---
+  // --- DUMMY BACKEND RESPONSE (Simulation) ---
+  const getDummyFinancialData = (currencySymbol) => ({
+    "total_income": 500000.00,
+    "total_expenses": 350000.00,
+    "net_savings": 150000.00,
+    "highest_expense": { "description": "Luxury Apartment Rent", "amount": 150000.00 },
+    "spending_breakdown": {
+      "Rent": 150000.00,
+      "Food & Dining": 85000.00,
+      "Transport": 45000.00,
+      "Entertainment": 30000.00,
+      "Utilities": 25000.00,
+      "Miscellaneous": 15000.00
+    },
+    "recurring_transactions": [
+      { "description": "Netflix Subscription", "amount": 15.99, "frequency": "Monthly" },
+      { "description": "Spotify Premium", "amount": 10.99, "frequency": "Monthly" },
+      { "description": "Gym Membership", "amount": 50.00, "frequency": "Monthly" }
+    ],
+    "transactions": [
+      { "Date": "2025-07-15", "Description": "Salary Deposit", "Amount": 500000.00, "Category": "Income" },
+      { "Date": "2025-07-14", "Description": "Luxury Apartment Rent", "Amount": -150000.00, "Category": "Rent" },
+      { "Date": "2025-07-12", "Description": "Grocery Shopping", "Amount": -45000.00, "Category": "Food & Dining" },
+      { "Date": "2025-07-10", "Description": "Uber Ride", "Amount": -125.50, "Category": "Transport" },
+      { "Date": "2025-07-08", "Description": "Netflix Subscription", "Amount": -15.99, "Category": "Entertainment" }
+    ]
+  });
 
-  /**
-   * Updates the financial summary section with dummy data.
-   * @param {string} currencySymbol - The currency symbol to use.
-   */
-  const updateFinancialSummary = (currencySymbol) => {
+  // --- UI UPDATE FUNCTIONS ---
+
+  const formatCurrency = (amount, symbol) => `${symbol}${amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+  const updateUI = (data, currencySymbol) => {
+    // Update metric cards
+    totalIncomeSpan.textContent = formatCurrency(data.total_income, currencySymbol);
+    totalExpensesSpan.textContent = formatCurrency(data.total_expenses, currencySymbol);
+    netSavingsSpan.textContent = formatCurrency(data.net_savings, currencySymbol);
+    highestExpenseSpan.textContent = `${formatCurrency(data.highest_expense.amount, currencySymbol)} (${data.highest_expense.description})`;
+
+    // Populate lists
+    populateList(recurringExpensesList, data.recurring_transactions, currencySymbol);
+    populateList(recentTransactionsList, data.transactions, currencySymbol);
+
+    // Create or update charts
+    createOrUpdateCharts(data, currencySymbol);
+
+    // Show the summary section
     if (financialSummarySection) financialSummarySection.style.display = 'block';
-
-    const summaryData = {
-      income: 500000,
-      expenses: 350000,
-      savings: 150000,
-      highestExpense: 120000,
-      highestExpenseCategory: "Groceries"
-    };
-
-    if (totalIncomeSpan) totalIncomeSpan.textContent = `${currencySymbol}${summaryData.income.toLocaleString()}`;
-    if (totalExpensesSpan) totalExpensesSpan.textContent = `${currencySymbol}${summaryData.expenses.toLocaleString()}`;
-    if (netSavingsSpan) netSavingsSpan.textContent = `${currencySymbol}${summaryData.savings.toLocaleString()}`;
-    if (highestExpenseSpan) highestExpenseSpan.textContent = `${currencySymbol}${summaryData.highestExpense.toLocaleString()} (${summaryData.highestExpenseCategory})`;
-
-    updateTransactionList(currencySymbol);
-    updateSpendingCategories(currencySymbol);
-    createOrUpdateCharts(currencySymbol, summaryData);
   };
 
-  /**
-   * Updates the recent transactions list with dummy data.
-   * @param {string} currencySymbol - The currency symbol to use.
-   */
-  const updateTransactionList = (currencySymbol) => {
-    if (recentTransactionsList) {
-      recentTransactionsList.innerHTML = `
-        <li><span class="transaction-date">2024-07-10</span> - <span class="transaction-description">Groceries</span>: <span class="transaction-amount">${currencySymbol}120,000</span></li>
-        <li><span class="transaction-date">2024-07-08</span> - <span class="transaction-description">Electricity Bill</span>: <span class="transaction-amount">${currencySymbol}15,000</span></li>
-        <li><span class="transaction-date">2024-07-05</span> - <span class="transaction-description">Salary</span>: <span class="transaction-amount">${currencySymbol}500,000</span></li>
-      `;
+  const populateList = (listElement, items, currencySymbol) => {
+    if (!listElement) return;
+    listElement.innerHTML = ''; // Clear existing items
+    if (items.length === 0) {
+      listElement.innerHTML = '<li>No data available.</li>';
+      return;
     }
-  };
-
-  /**
-   * Updates the spending categories list with dummy data.
-   * @param {string} currencySymbol - The currency symbol to use.
-   */
-  const updateSpendingCategories = (currencySymbol) => {
-    if (spendingCategoriesList) {
-      spendingCategoriesList.innerHTML = `
-        <li>Food <span>${currencySymbol}100,000</span></li>
-        <li>Transport <span>${currencySymbol}50,000</span></li>
-        <li>Rent <span>${currencySymbol}150,000</span></li>
-        <li>Utilities <span>${currencySymbol}30,000</span></li>
+    items.forEach(item => {
+      const li = document.createElement('li');
+      const isExpense = item.Amount < 0 || item.frequency; // Recurring items are always expenses
+      const amount = item.Amount ? item.Amount : -item.amount; // Normalize amount key
+      li.innerHTML = `
+        <div class="list-item-main">
+          <span class="description">${item.Description || item.description}</span>
+          <span class="date">${item.Date || item.frequency}</span>
+        </div>
+        <span class="amount ${isExpense ? 'expense' : 'income'}">${formatCurrency(Math.abs(amount), currencySymbol)}</span>
       `;
-    }
+      listElement.appendChild(li);
+    });
   };
 
-  /**
-   * Creates or updates the financial charts.
-   * @param {string} currencySymbol - The currency symbol to use.
-   * @param {object} summaryData - The financial summary data.
-   */
-  const createOrUpdateCharts = (currencySymbol, summaryData) => {
-    const spendingData = {
-      labels: ['Food', 'Transport', 'Rent', 'Utilities'],
-      datasets: [{
-        data: [100000, 50000, 150000, 30000],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0'],
-      }]
-    };
-
-    const incomeExpenseData = {
-      labels: ['Income', 'Expenses'],
-      datasets: [{
-        data: [summaryData.income, summaryData.expenses],
-        backgroundColor: ['#28a745', '#dc3545'],
-      }]
-    };
-
+  const createOrUpdateCharts = (data, currencySymbol) => {
+    // Spending Breakdown Chart (Pie)
     if (spendingChartCanvas) {
       if (spendingChart) spendingChart.destroy();
       spendingChart = new Chart(spendingChartCanvas, {
         type: 'pie',
-        data: spendingData,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { position: 'top' },
-            title: { display: true, text: 'Spending Breakdown' }
-          }
+        data: {
+          labels: Object.keys(data.spending_breakdown),
+          datasets: [{
+            data: Object.values(data.spending_breakdown),
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40']
+          }]
         },
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
       });
     }
 
+    // Income vs. Expense Chart (Bar)
     if (incomeExpenseChartCanvas) {
       if (incomeExpenseChart) incomeExpenseChart.destroy();
       incomeExpenseChart = new Chart(incomeExpenseChartCanvas, {
         type: 'bar',
-        data: incomeExpenseData,
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: false },
-            title: { display: true, text: 'Income vs. Expenses' }
-          },
-          scales: { y: { beginAtZero: true } }
+        data: {
+          labels: ['Total Flow'],
+          datasets: [
+            { label: 'Income', data: [data.total_income], backgroundColor: '#28a745' },
+            { label: 'Expenses', data: [data.total_expenses], backgroundColor: '#dc3545' }
+          ]
         },
+        options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true } } }
       });
     }
   };
 
-  /**
-   * Loads saved salary and currency from localStorage.
-   */
-  const loadSavedData = () => {
-    if (!salaryAmountInput || !currencySelect || !currencySymbolSpan) return;
+  // --- EVENT HANDLERS ---
 
-    const savedSalary = localStorage.getItem('monthlySalary');
-    const savedCurrency = localStorage.getItem('currency') || 'NGN'; // Default to NGN
-
-    if (savedSalary) {
-      salaryAmountInput.value = savedSalary;
-    }
-    currencySelect.value = savedCurrency;
-    currencySymbolSpan.textContent = currencySymbols[savedCurrency];
-  };
-
-  /**
-   * Handles the main "Save & Process" button click event.
-   */
   const handleSaveAndProcess = () => {
-    // Save salary and currency
     const salary = salaryAmountInput.value;
     const currency = currencySelect.value;
     localStorage.setItem('monthlySalary', salary);
     localStorage.setItem('currency', currency);
-    window.showNotification(`Monthly salary of ${currencySymbols[currency]}${salary} saved!`, 'success');
 
-    // Process statement if a file is selected
-    if (bankStatementFile && bankStatementFile.files.length > 0) {
-      uploadStatusDiv.textContent = 'Processing statement... (Backend integration needed)';
-      uploadStatusDiv.style.color = '#3498db'; // Blue for processing
-
-      // Simulate processing
-      setTimeout(() => {
-        uploadStatusDiv.textContent = 'Statement processed! (Dummy data shown)';
-        uploadStatusDiv.style.color = '#28a745'; // Green for success
-        updateFinancialSummary(currencySymbols[currency]);
-      }, 2000);
-    } else {
-      uploadStatusDiv.textContent = 'Please select a file to upload.';
-      uploadStatusDiv.style.color = '#e74c3c'; // Red for error
-      window.showNotification('Please select a file to upload.', 'error');
+    if (!bankStatementFile.files.length) {
+      window.showNotification('Please select a bank statement file.', 'error');
+      return;
     }
+
+    uploadStatusDiv.textContent = 'Processing statement...';
+    uploadStatusDiv.style.color = '#17a2b8';
+
+    // Simulate backend processing
+    setTimeout(() => {
+      const currencySymbol = currencySymbols[currency];
+      const dummyData = getDummyFinancialData(currencySymbol);
+      updateUI(dummyData, currencySymbol);
+      uploadStatusDiv.textContent = 'Statement processed successfully!';
+      uploadStatusDiv.style.color = '#28a745';
+      window.showNotification('Financial summary updated!', 'success');
+    }, 2000);
+  };
+
+  const loadSavedData = () => {
+    const savedSalary = localStorage.getItem('monthlySalary');
+    const savedCurrency = localStorage.getItem('currency') || 'NGN';
+    if (savedSalary) salaryAmountInput.value = savedSalary;
+    currencySelect.value = savedCurrency;
+    currencySymbolSpan.textContent = currencySymbols[savedCurrency];
   };
 
   // --- EVENT LISTENERS ---
@@ -197,15 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
     saveAndProcessBtn.addEventListener('click', handleSaveAndProcess);
   }
 
-  if (selectFileBtn && bankStatementFile) {
+  if (selectFileBtn) {
     selectFileBtn.addEventListener('click', () => bankStatementFile.click());
-
     bankStatementFile.addEventListener('change', () => {
-      if (selectedFileNameSpan) {
-        selectedFileNameSpan.textContent = bankStatementFile.files.length > 0
-          ? bankStatementFile.files[0].name
-          : 'No file chosen';
-      }
+      selectedFileNameSpan.textContent = bankStatementFile.files.length > 0
+        ? bankStatementFile.files[0].name
+        : 'No file chosen';
     });
   }
 

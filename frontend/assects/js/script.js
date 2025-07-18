@@ -428,6 +428,29 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeLanguage();
   initializeDarkMode();
   initializeProfile();
+
+  // --- SCROLL HIDE/SHOW FOR NAVBAR AND TABBAR (MOBILE) ---
+  let lastScrollTop = 0;
+  const navbar = document.querySelector('.navbar');
+  const tabbar = document.querySelector('.tabbar');
+
+  window.addEventListener('scroll', () => {
+    const currentScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+    // Only apply on mobile (adjust breakpoint as needed, matching CSS)
+    if (window.innerWidth <= 767) {
+      if (currentScrollTop > lastScrollTop && currentScrollTop > navbar.offsetHeight) {
+        // Scrolling down and past the navbar height
+        navbar.classList.add('hidden');
+        tabbar.classList.add('hidden');
+      } else if (currentScrollTop < lastScrollTop) {
+        // Scrolling up
+        navbar.classList.remove('hidden');
+        tabbar.classList.remove('hidden');
+      }
+    }
+    lastScrollTop = currentScrollTop <= 0 ? 0 : currentScrollTop; // For Mobile or negative scrolling
+  });
 });
 
 // --- GLOBAL NOTIFICATION SYSTEM ---

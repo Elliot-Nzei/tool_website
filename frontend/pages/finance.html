@@ -31,7 +31,6 @@
     <section class="card finance-setup-card">
       <h3 data-i18n="financeSetup">Setup Your Finances</h3>
       <div class="finance-setup-form">
-        <div class="finance-setup-form">
         <div class="form-group">
           <label for="salaryAmount" data-i18n="monthlySalary">Monthly Salary</label>
           <div class="input-group-with-icon">
@@ -59,42 +58,70 @@
         <button class="action-btn full-width-btn" id="saveAndProcessBtn" data-i18n="saveAndProcess">Save & Process</button>
         <div id="uploadStatus" class="status-message"></div>
       </div>
+    </section>
 
     <!-- Financial Summary (Initially Hidden) -->
-    <section class="card financial-summary-section" style="display: none;">
-      <h3 data-i18n="financialSummary">Financial Summary</h3>
-      <div class="summary-metrics-grid">
-        <div class="metric-item">
-          <p data-i18n="totalIncome">Total Income:</p>
-          <span id="totalIncome">₦0.00</span>
+    <section class="financial-summary-section" style="display: none;">
+      <div class="summary-grid">
+        <!-- Metric Cards -->
+        <div class="card metric-card">
+          <div class="metric-icon"><i class="fas fa-arrow-down"></i></div>
+          <div>
+            <p data-i18n="totalIncome">Total Income</p>
+            <span id="totalIncome"></span>
+          </div>
         </div>
-        <div class="metric-item">
-          <p data-i18n="totalExpenses">Total Expenses:</p>
-          <span id="totalExpenses">₦0.00</span>
+        <div class="card metric-card">
+          <div class="metric-icon"><i class="fas fa-arrow-up"></i></div>
+          <div>
+            <p data-i18n="totalExpenses">Total Expenses</p>
+            <span id="totalExpenses"></span>
+          </div>
         </div>
-        <div class="metric-item">
-          <p data-i18n="netSavings">Net Savings:</p>
-          <span id="netSavings">₦0.00</span>
+        <div class="card metric-card">
+          <div class="metric-icon"><i class="fas fa-piggy-bank"></i></div>
+          <div>
+            <p data-i18n="netSavings">Net Savings</p>
+            <span id="netSavings"></span>
+          </div>
         </div>
-        <div class="metric-item">
-          <p data-i18n="highestExpense">Highest Expense:</p>
-          <span id="highestExpense">₦0.00</span>
+        <div class="card metric-card">
+          <div class="metric-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <div>
+            <p data-i18n="highestExpense">Highest Expense</p>
+            <span id="highestExpense"></span>
+          </div>
         </div>
-      </div>
 
-      <h4 data-i18n="spendingCategories">Spending Categories</h4>
-      <div class="chart-container">
-        <canvas id="spendingChart"></canvas>
-      </div>
+        <!-- Charts -->
+        <div class="card chart-card">
+          <h4 data-i18n="spendingCategories">Spending Categories</h4>
+          <div class="chart-container">
+            <canvas id="spendingChart"></canvas>
+          </div>
+        </div>
+        <div class.card chart-card">
+          <h4 data-i18n="incomeVsExpenses">Income vs. Expenses</h4>
+          <div class="chart-container">
+            <canvas id="incomeExpenseChart"></canvas>
+          </div>
+        </div>
 
-      <h4 data-i18n="recurringExpenses">Recurring Expenses</h4>
-      <ul id="recurringExpensesList">
-        <!-- Recurring expenses will be populated by JS -->
-      </ul>
+        <!-- Recurring Transactions -->
+        <div class="card list-card" id="recurring-section">
+          <h4 data-i18n="recurringExpenses">Recurring Expenses</h4>
+          <ul id="recurringExpensesList">
+            <!-- JS will populate this -->
+          </ul>
+        </div>
 
-      <h4 data-i18n="incomeVsExpenses">Income vs. Expenses</h4>
-      <div class="chart-container">
-        <canvas id="incomeExpenseChart"></canvas>
+        <!-- All Transactions -->
+        <div class="card list-card" id="transactions-section">
+          <h4 data-i18n="recentTransactions">All Transactions</h4>
+          <ul id="recentTransactionsList">
+            <!-- JS will populate this -->
+          </ul>
+        </div>
       </div>
     </section>
 
